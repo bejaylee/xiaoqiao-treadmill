@@ -117,7 +117,14 @@ public class MinePage {
         LinearLayout about = u.card();
         u.gap(about, 12);
         about.addView(u.text("关于", 17, p.onSurface, true));
-        TextView v = u.text("小乔跑步机  v1.0.1 (2)\n局域网直连 · 数据仅存本机", 12, p.onSurfaceVariant);
+        String ver = "";
+        try {
+            android.content.pm.PackageInfo pi = a.getPackageManager()
+                    .getPackageInfo(a.getPackageName(), 0);
+            ver = "  v" + pi.versionName + " (" + pi.versionCode + ")";
+        } catch (Exception ignored) {
+        }
+        TextView v = u.text("小乔跑跑" + ver + "\n局域网直连 · 数据仅存本机", 12, p.onSurfaceVariant);
         v.setLineSpacing(u.dp(3), 1f);
         u.gap(v, 6);
         about.addView(v);

@@ -87,6 +87,17 @@ public class VoiceCoach {
             MediaPlayer mp = new MediaPlayer();
             mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             afd.close();
+            mp.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC);
+            mp.setVolume(1.0f, 1.0f);
+            mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer m, int what, int extra) {
+                    Logs.add("语音播放错误 what=" + what + " extra=" + extra);
+                    try { m.release(); } catch (Exception ignored) { }
+                    if (player == m) player = null;
+                    return true;
+                }
+            });
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer m) {
@@ -94,8 +105,15 @@ public class VoiceCoach {
                     if (player == m) player = null;
                 }
             });
-            mp.prepare();
-            mp.start();
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer m) {
+                    try { m.start(); } catch (Exception e) {
+                        Logs.add("语音 start 失败: " + e.getMessage());
+                    }
+                }
+            });
+            mp.prepareAsync();
             player = mp;
         } catch (Exception e) {
             Logs.add("语音播放失败：" + e.getMessage());

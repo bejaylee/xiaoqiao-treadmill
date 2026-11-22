@@ -17,3 +17,4 @@ test-results/
 ui-preview/
 *.pyc
 __pycache__/
+*.idsig

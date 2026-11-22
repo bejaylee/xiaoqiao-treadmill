@@ -45,7 +45,7 @@ public class ShareCard {
         // 顶部品牌
         p.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
         p.setTextSize(40);
-        c.drawText("小乔跑步机", 90, 120, p);
+        c.drawText("小乔跑跑", 90, 120, p);
 
         p.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
         p.setTextSize(32);
@@ -117,7 +117,7 @@ public class ShareCard {
 
         p.setColor(0x99FFFFFF);
         p.setTextSize(28);
-        c.drawText("记录来自 小乔跑步机", 90, 1360, p);
+        c.drawText("记录来自 小乔跑跑", 90, 1360, p);
 
         return bmp;
     }

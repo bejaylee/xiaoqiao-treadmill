@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements ConnectionManager.Listener
         super.onCreate(savedInstanceState);
         u = new Ui(this);
         p = u.p;
-        metro = Metronome.get();
+        metro = Metronome.get(this);
         conn = ConnectionManager.get();
         conn.register(this);
         currentIp = conn.ip();
@@ -91,6 +91,35 @@ public class MainActivity extends Activity implements ConnectionManager.Listener
         switchTab(lastTab);
     }
 
+    private final CourseSession.Listener courseListener = new CourseSession.Listener() {
+        @Override
+        public void onProgress(int segIndex, int segTotal, double targetKmh,
+                               int countedSec, int totalSec, int percent, boolean frozen) {
+            ui.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (tab == 0 && !CourseSession.get().isRunning()) return;
+                    tvSpeedSub.setText("课程进行中 · 第 " + (segIndex + 1) + " 段");
+                    btnRun.setEnabled(false);
+                    btnRun.setAlpha(0.4f);
+                }
+            });
+        }
+
+        @Override
+        public void onFinish(String reason) {
+            ui.post(new Runnable() {
+                @Override
+                public void run() {
+                    btnRun.setEnabled(conn.isConnected());
+                    btnRun.setAlpha(conn.isConnected() ? 1f : 0.4f);
+                    updateRunButton();
+                    updateConnectionUi(conn.isConnected());
+                }
+            });
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -100,7 +129,16 @@ public class MainActivity extends Activity implements ConnectionManager.Listener
             runActive = false;
         }
         if (metro != null) updateMetroUi();
-        if (!conn.isConnected()) conn.autoFind(this);
+        // 课程进行中：提示用户点课程页查看沉浸进度，别误开自由跑
+        CourseSession cs = CourseSession.get();
+        cs.attach(this);
+        if (cs.isRunning()) {
+            tvSpeedSub.setText("课程进行中 · 第 " + (cs.activeSeg + 1) + " 段");
+            btnRun.setEnabled(false);
+            btnRun.setAlpha(0.4f);
+        } else if (!conn.isConnected()) {
+            conn.autoFind(this);
+        }
         if (tab == 2) recordPage.refresh();
     }
 
@@ -145,7 +183,7 @@ public class MainActivity extends Activity implements ConnectionManager.Listener
         LinearLayout titleCol = u.column();
         tvTitle = u.headline("运动", 24);
         titleCol.addView(tvTitle);
-        TextView sub = u.text("小乔跑步机", 12, p.onSurfaceVariant);
+        TextView sub = u.text("小乔跑跑", 12, p.onSurfaceVariant);
         u.gap(sub, 2);
         titleCol.addView(sub);
         bar.addView(titleCol, u.lpWeight(1));

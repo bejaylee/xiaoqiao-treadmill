@@ -2,6 +2,8 @@ package com.xq.treadmill;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -34,7 +36,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
     private LinearLayout tabRow, body;
 
     private ConnectionManager conn;
-    private PlanRunner runner;
+    private CourseSession session;
 
     private int tab = 0;                 // 0 = 精选课程, 1 = 自定义
     private String expandedId = null;
@@ -49,6 +51,18 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
     private VoiceCoach voice;
     private Metronome metro;
     private TextView btnVoice, btnMetro, tvBpm, chipAuto, chipManual;
+    private TextView btnOrient;
+    private int orientMode;
+    private static final String PREF_ORIENT = "course_orient";
+
+    // 沉浸页
+    private TextView tvImmPhase, tvImmSpeed, tvImmTime, tvImmNext, tvImmProgress;
+    private LinearLayout immerse;
+    private android.widget.FrameLayout shell;
+    private View normalLayer;
+    private View immerseLayer;
+    private View immProgressFill;
+    private TextView tvImmPct;
 
     private EditText etCustom;
     private TextView tvPreview;
@@ -59,9 +73,14 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         super.onCreate(b);
         u = new Ui(this);
         p = u.p;
+        orientMode = getSharedPreferences("xq", MODE_PRIVATE).getInt(PREF_ORIENT, 0);
+        applyOrientation();
         setContentView(buildUi());
         voice = VoiceCoach.get(this);
-        metro = Metronome.get();
+        metro = Metronome.get(this);
+        session = CourseSession.get();
+        session.attach(this);
+        session.register(listener);
         conn = ConnectionManager.get();
         conn.register(this);
         if (!conn.isConnected()) conn.autoFind(this);
@@ -73,26 +92,52 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         render();
     }
 
+    private void applyOrientation() {
+        int o = orientMode == 1 ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                : orientMode == 2 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                : ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        setRequestedOrientation(o);
+    }
+
+    private String orientLabel() {
+        return orientMode == 1 ? "竖屏锁定" : orientMode == 2 ? "横屏锁定" : "跟随手机";
+    }
+
+    private boolean isLandscape() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (session != null && session.isRunning()) render();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ui.removeCallbacksAndMessages(null);      // S4
-        if (runner != null) runner.stop();
-        // M3：只停本页自己启动的节拍器，不动主页的
-        if (metroStartedHere && metro != null) metro.stop();
-        if (voice != null) voice.stop();
+        if (session != null) session.unregister(listener);
         if (conn != null) conn.unregister(this);
     }
 
     private View buildUi() {
-        ScrollView sv = new ScrollView(this);
-        scroller = sv;
+        shell = new android.widget.FrameLayout(this);
+        shell.setBackgroundColor(p.bg);
+        LinearLayout sv = new LinearLayout(this);
+        sv.setOrientation(LinearLayout.VERTICAL);
+        scroller = new ScrollView(this);   // 保留字段兼容旧引用，不加入视图树
         sv.setBackgroundColor(p.bg);
-        sv.setFillViewport(true);
+        normalLayer = sv;
         LinearLayout root = u.column();
         u.pad(root, 20, 8, 20, 24);
+        root.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         sv.addView(root);
+        sv.setLayoutParams(new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        shell.addView(sv);
 
         LinearLayout head = u.row();
         btnBack = u.circle("‹", 48, p.surfaceVariant, p.onSurface, Palette.alpha(p.onSurface, 26));
@@ -114,6 +159,23 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         head.addView(col, hlp);
         root.addView(head);
 
+        LinearLayout orientRow = u.row();
+        orientRow.setGravity(Gravity.RIGHT);
+        btnOrient = u.chip(orientLabel(), false);
+        btnOrient.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                orientMode = (orientMode + 1) % 3;
+                getSharedPreferences("xq", MODE_PRIVATE).edit()
+                        .putInt(PREF_ORIENT, orientMode).apply();
+                applyOrientation();
+                btnOrient.setText(orientLabel());
+                Logs.add("屏幕方向：" + orientLabel());
+            }
+        });
+        orientRow.addView(btnOrient);
+        u.gap(orientRow, 8);
+        root.addView(orientRow);
+
         tvProgress = u.text("", 13, p.primary);
         u.gap(tvProgress, 10);
         root.addView(tvProgress);
@@ -125,7 +187,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (runner != null) runner.stop();
+                if (session != null) session.stop();
             }
         });
         root.addView(btnStop);
@@ -241,12 +303,20 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         u.gap(body, 12);
         root.addView(body);
 
-        return sv;
+        return shell;
     }
 
     // ------------------------------------------------------------ 渲染
     private void render() {
         renderTabs();
+        boolean running = session != null && session.isRunning();
+        normalLayer.setVisibility(running ? View.GONE : View.VISIBLE);
+        if (running) {
+            buildImmerseLayer();
+            updateImmerse(session.activeSeg, session.lastCounted);
+            return;
+        }
+        if (immerseLayer != null) immerseLayer.setVisibility(View.GONE);
         body.removeAllViews();
         if (tab == 0) renderCourses();
         else renderCustom();
@@ -354,7 +424,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (runner != null && runner.isRunning()) {
+                    if (session != null && session.isRunning()) {
                         log("课程进行中，先停止");
                         return;
                     }
@@ -450,7 +520,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
 
     // ------------------------------------------------------------ 执行
     private void startCourse(CourseLibrary.Course c, TextView btn) {
-        if (runner != null && runner.isRunning()) {
+        if (session != null && session.isRunning()) {
             log("课程进行中，请先停止");
             return;
         }
@@ -464,7 +534,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
             log("还没连上跑步机，请回主页连接");
             return;
         }
-        if (runner != null && runner.isRunning()) {
+        if (session != null && session.isRunning()) {
             log("已有课程在跑");
             return;
         }
@@ -480,8 +550,7 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         voice.speak(VoiceLines.startFor(currentCourseId));
         // 课程期间保持亮屏，避免息屏断连与「停止课程」点不到
         getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        runner = new PlanRunner(conn.client(), listener);
-        runner.start(segs, 1, 0);
+        session.start(currentCourseId, name, segs, currentSteps);
         btnStop.setVisibility(View.VISIBLE);
         log("开始：" + name + "（" + segs.size() + " 段）");
         render();
@@ -494,7 +563,234 @@ public class CourseActivity extends Activity implements ConnectionManager.Listen
         });
     }
 
-    private final PlanRunner.Listener listener = new PlanRunner.Listener() {
+    /**
+     * 沉浸页：参考 Keep / 小米运动健康。
+     * 竖屏：状态条 → 超大速度 → 四宫格 → 下一阶段 → 进度条 → 停止。
+     * 横屏：左侧速度+数据，右侧下一阶段+进度+停止，一屏完整显示。
+     */
+    private void buildImmerseLayer() {
+        if (immerseLayer != null) shell.removeView(immerseLayer);
+        boolean land = isLandscape();
+
+        LinearLayout layer = new LinearLayout(this);
+        layer.setOrientation(LinearLayout.VERTICAL);
+        layer.setBackgroundColor(p.bg);
+        immerseLayer = layer;
+
+        LinearLayout page = u.column();
+        u.pad(page, land ? 24 : 20, land ? 14 : 20, land ? 24 : 20, land ? 14 : 24);
+        page.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                land ? ViewGroup.LayoutParams.WRAP_CONTENT : ViewGroup.LayoutParams.MATCH_PARENT));
+        layer.addView(page);
+
+        // ── 顶部栏：返回 / 阶段 / 方向 ──────────────────────────
+        LinearLayout top = u.row();
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        TextView back = u.circle("‹", 44, p.surfaceVariant, p.onSurface,
+                Palette.alpha(p.onSurface, 26));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { finish(); }
+        });
+        top.addView(back);
+        tvImmPhase = u.text("", 13, p.onSurfaceVariant);
+        tvImmPhase.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams tlp = u.lpWeight(1);
+        tlp.leftMargin = u.dp(12);
+        top.addView(tvImmPhase, tlp);
+        TextView orient = u.chip(orientLabel(), false);
+        orient.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                orientMode = (orientMode + 1) % 3;
+                getSharedPreferences("xq", MODE_PRIVATE).edit()
+                        .putInt(PREF_ORIENT, orientMode).apply();
+                applyOrientation();
+                render();
+                Logs.add("屏幕方向：" + orientLabel());
+            }
+        });
+        top.addView(orient);
+        page.addView(top);
+
+        // ── 主体 ────────────────────────────────────────────────
+        LinearLayout content = land ? u.row() : u.column();
+        if (land) {
+            content.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            u.gap(content, 14);
+        } else {
+            LinearLayout.LayoutParams clp = u.lp(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+            clp.weight = 1;
+            content.setLayoutParams(clp);
+            content.setGravity(Gravity.CENTER_VERTICAL);
+            u.gap(content, 20);
+        }
+        page.addView(content);
+
+        // 左列（横屏）/ 主列（竖屏）：速度 + 数据卡
+        LinearLayout main = u.column();
+        main.setLayoutParams(land ? u.lpWeight(1)
+                : u.lp(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        content.addView(main);
+
+        LinearLayout hero = u.column();
+        hero.setGravity(Gravity.CENTER);
+        hero.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        TextView speedLabel = u.text("当前速度", 13, p.onSurfaceVariant);
+        speedLabel.setGravity(Gravity.CENTER);
+        hero.addView(speedLabel);
+        tvImmSpeed = u.text("", land ? 68 : 88, p.primary, true);
+        tvImmSpeed.setGravity(Gravity.CENTER);
+        hero.addView(tvImmSpeed);
+        TextView unit = u.text("km/h", 14, p.onSurfaceVariant);
+        unit.setGravity(Gravity.CENTER);
+        u.gap(unit, 4);
+        hero.addView(unit);
+        main.addView(hero);
+
+        LinearLayout grid = u.row();
+        u.gap(grid, land ? 16 : 24);
+        tvImmTime = statCell(grid, "本段剩余", land ? 24 : 28, "0:00", false);
+        tvImmPct = statCell(grid, "总进度", land ? 24 : 28, "0%", true);
+        main.addView(grid);
+
+        // 右列（横屏）/ 下半（竖屏）：下一阶段 + 进度 + 停止
+        LinearLayout side = u.column();
+        if (land) {
+            side.setLayoutParams(u.lpWeight(1));
+            side.setPadding(u.dp(20), 0, 0, 0);
+        } else {
+            side.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        content.addView(side);
+
+        // 下一阶段：独立卡片
+        LinearLayout nextCard = u.column();
+        nextCard.setBackground(u.round(p.surfaceVariant, 18,
+                Palette.alpha(p.outline, 55), 1));
+        u.pad(nextCard, 16, 14, 16, 16);
+        nextCard.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (!land) u.gap(nextCard, 24);
+        nextCard.addView(u.text("下一阶段", 11, p.onSurfaceVariant));
+        tvImmNext = u.text("", land ? 17 : 19, p.onSurface, true);
+        u.gap(tvImmNext, 8);
+        nextCard.addView(tvImmNext);
+        side.addView(nextCard);
+
+        // 进度块
+        LinearLayout prog = u.column();
+        prog.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        u.gap(prog, land ? 18 : 24);
+        prog.addView(u.text("课程进度", 11, p.onSurfaceVariant));
+
+        LinearLayout track = new LinearLayout(this);
+        track.setBackground(u.round(p.surfaceVariant, 8));
+        track.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT, u.dp(14)));
+        u.gap(track, 10);
+        immProgressFill = new View(this);
+        immProgressFill.setBackground(u.round(p.primary, 7));
+        track.addView(immProgressFill, u.lp(0, u.dp(14)));
+        prog.addView(track);
+
+        tvImmProgress = u.text("", 12, p.onSurfaceVariant);
+        u.gap(tvImmProgress, 10);
+        prog.addView(tvImmProgress);
+        side.addView(prog);
+
+        // 停止按钮：与上方留足呼吸
+        TextView stop = u.danger("停止课程");
+        stop.setLayoutParams(u.lp(ViewGroup.LayoutParams.MATCH_PARENT, u.dp(52)));
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if (session != null) session.stop();
+            }
+        });
+        if (land) {
+            u.gap(stop, 18);
+            side.addView(stop);
+        } else {
+            // 竖屏：作为底部主操作区固定贴底，和内容拉开呼吸
+            u.gap(stop, 20);
+            page.addView(stop);
+        }
+
+        immerse = page;
+        layer.setLayoutParams(new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        shell.addView(layer);
+        layer.setVisibility(View.VISIBLE);
+    }
+
+    /** 数据卡：独立圆角卡片，卡间由 leftMargin 分隔，不再互相压边 */
+    private TextView statCell(LinearLayout parent, String label, float sp,
+                              String value, boolean gapLeft) {
+        LinearLayout cell = u.column();
+        cell.setBackground(u.round(p.surfaceVariant, 18,
+                Palette.alpha(p.outline, 55), 1));
+        u.pad(cell, 16, 14, 16, 14);
+        LinearLayout.LayoutParams lp = u.lp(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.weight = 1;
+        if (gapLeft) lp.leftMargin = u.dp(12);
+        cell.setLayoutParams(lp);
+        cell.addView(u.text(label, 11, p.onSurfaceVariant));
+        TextView v = u.text(value, sp, p.onSurface, true);
+        u.gap(v, 6);
+        cell.addView(v);
+        parent.addView(cell);
+        return v;
+    }
+
+    private void updateImmerse(int segIndex, int countedSec) {
+        if (immerse == null || session == null || session.segs == null) return;
+        List<PlanRunner.Seg> list = session.segs;
+        int n = list.size();
+        int idx = Math.max(0, Math.min(segIndex, n - 1));
+        PlanRunner.Seg cur = list.get(idx);
+        int acc = 0;
+        for (int i = 0; i < idx; i++) acc += list.get(i).seconds;
+        int segRemain = Math.max(0, cur.seconds - (countedSec - acc));
+
+        String phase = (session.steps != null && idx < session.steps.size())
+                ? session.steps.get(idx).phase : (session.courseName != null ? session.courseName : "课程");
+        tvImmPhase.setText(phase + " · 第 " + (idx + 1) + "/" + n + " 段");
+        tvImmSpeed.setText(String.format(java.util.Locale.US, "%.1f", cur.speed));
+        tvImmTime.setText(fmt(segRemain));
+        if (idx + 1 < n) {
+            PlanRunner.Seg nx = list.get(idx + 1);
+            String nxPhase = (session.steps != null && idx + 1 < session.steps.size())
+                    ? session.steps.get(idx + 1).phase : "下一段";
+            tvImmNext.setText(nxPhase + "  ·  " + fmt(nx.seconds)
+                    + "  ·  " + String.format(java.util.Locale.US, "%.1f km/h", nx.speed));
+        } else {
+            tvImmNext.setText("最后一段 · 完成后自动结束");
+        }
+        int total = 0;
+        for (PlanRunner.Seg sg : list) total += sg.seconds;
+        final int pct = total > 0 ? Math.min(100, countedSec * 100 / total) : 0;
+        tvImmPct.setText(pct + "%");
+        tvImmProgress.setText("已跑 " + fmt(countedSec) + " / " + fmt(total)
+                + " · 剩余 " + fmt(Math.max(0, total - countedSec)));
+        if (immProgressFill != null && immProgressFill.getParent() != null) {
+            final View trackView = (View) immProgressFill.getParent();
+            trackView.post(new Runnable() {
+                @Override public void run() {
+                    int parentW = trackView.getWidth();
+                    if (parentW <= 0) return;
+                    android.view.ViewGroup.LayoutParams lp = immProgressFill.getLayoutParams();
+                    if (lp == null) return;
+                    int w = (int) (parentW * pct / 100f);
+                    if (pct > 0 && w < u.dp(8)) w = u.dp(8);   // 保证非零进度可见
+                    lp.width = Math.max(0, w);
+                    immProgressFill.setLayoutParams(lp);
+                }
+            });
+        }
+    }
+
+    private final CourseSession.Listener listener = new CourseSession.Listener() {
         @Override
         public void onProgress(int segIndex, int segTotal, double targetKmh,
                                int countedSec, int totalSec, int percent, boolean frozen) {

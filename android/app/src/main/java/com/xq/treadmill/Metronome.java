@@ -1,7 +1,9 @@
 package com.xq.treadmill;
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
-import android.media.ToneGenerator;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -12,8 +14,8 @@ import android.os.Looper;
  *   跟随速度（默认）—— 按当前速度推算步频：慢走 120、快走 136、慢跑 152、快跑 168+
  *   手动 —— 用户自己加减，不再随速度变
  *
- * 速度→步频用 88 + 速度×8 的经验映射，再夹到 100–180：
- *   4 km/h → 120，6 → 136，8 → 152，10 → 168，12 → 180
+ * 声音用内置 WAV（beat_accent.wav / beat_tick.wav）经 MediaPlayer 播放，
+ * 走 STREAM_MUSIC 且音量拉满——比旧的 ToneGenerator 短音明显得多。
  */
 public class Metronome {
 
@@ -22,16 +24,19 @@ public class Metronome {
 
     private static Metronome instance;
 
-    public static synchronized Metronome get() {
-        if (instance == null) instance = new Metronome();
+    public static synchronized Metronome get(Context c) {
+        if (instance == null) instance = new Metronome(c.getApplicationContext());
         return instance;
     }
 
+    private final Context ctx;
     private final Handler ui = new Handler(Looper.getMainLooper());
 
-    private Metronome() {}
+    private Metronome(Context c) {
+        this.ctx = c;
+    }
 
-    private ToneGenerator tone;
+    private MediaPlayer player;
     private boolean running;
     private boolean auto = true;
     private volatile int bpm = 120;
@@ -43,7 +48,7 @@ public class Metronome {
         public void run() {
             if (!running) return;
             if (bpm > 0) {
-                playTick();
+                playTick(beats % 4 == 0);
                 beats++;
                 ui.postDelayed(this, Math.max(120, 60000 / bpm));
             } else {
@@ -52,14 +57,28 @@ public class Metronome {
         }
     };
 
-    private void playTick() {
+    private void playTick(boolean accent) {
+        String asset = accent ? "voice/beat_accent.wav" : "voice/beat_tick.wav";
         try {
-            if (tone == null) {
-                tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME / 2);
+            if (player != null) {
+                try { player.release(); } catch (Exception ignored) { }
+                player = null;
             }
-            boolean accent = beats % 4 == 0;
-            tone.startTone(accent ? ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD
-                    : ToneGenerator.TONE_CDMA_PIP, 35);
+            AssetFileDescriptor afd = ctx.getAssets().openFd(asset);
+            MediaPlayer mp = new MediaPlayer();
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mp.setVolume(1.0f, 1.0f);          // 满音量
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer m) {
+                    m.release();
+                }
+            });
+            mp.prepare();
+            mp.start();
+            player = mp;
         } catch (Exception ignored) {
         }
     }
@@ -83,11 +102,13 @@ public class Metronome {
     public void stop() {
         running = false;
         ui.removeCallbacks(tick);
-        if (tone != null) {
+        if (player != null) {
             try {
-                tone.stopTone();
+                if (player.isPlaying()) player.stop();
+                player.release();
             } catch (Exception ignored) {
             }
+            player = null;
         }
     }
 
@@ -142,12 +163,5 @@ public class Metronome {
 
     public void release() {
         stop();
-        if (tone != null) {
-            try {
-                tone.release();
-            } catch (Exception ignored) {
-            }
-            tone = null;
-        }
     }
 }
