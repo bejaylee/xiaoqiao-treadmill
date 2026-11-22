@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小乔跑步机 App 停服怎么办？小乔跑跑 · SmartRun 离线控制方案</title>
+<meta name="description" content="官方「小乔快跑」App 连不上、登录不了？小乔跑跑是开源的局域网离线控制端，支持小乔 SmartRun 跑步机的配网、课程、语音播报与运动记录。无需账号，不依赖厂商服务器。">
+<meta name="keywords" content="小乔跑步机,小乔快跑,小乔 SmartRun,小乔跑步机 App 停服,小乔跑步机 连不上,跑步机 离线控制,SmartRun 跑步机 控制">
+<link rel="canonical" href="https://bejaylee.github.io/xiaoqiao-treadmill/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="小乔跑步机 App 停服怎么办？小乔跑跑 · 离线控制方案">
+<meta property="og:description" content="官方 App 失效后，用局域网协议重建的小乔跑步机控制端：配网、课程、语音、记录，全部离线。">
+<meta property="og:image" content="https://bejaylee.github.io/xiaoqiao-treadmill/screenshots/01-sport.png">
+<meta property="og:url" content="https://bejaylee.github.io/xiaoqiao-treadmill/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --bg:#131118; --surface:#1d1b22; --surface2:#2a2731;
+  --text:#e7e1ea; --muted:#b5afbc; --primary:#d0bcff; --primary-deep:#6750a4;
+  --line:rgba(203,196,208,.18); --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header{
+  position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);
+  background:rgba(19,17,24,.82);border-bottom:1px solid var(--line);
+}
+header .wrap{display:flex;align-items:center;gap:12px;height:60px}
+.brand{font-weight:600;letter-spacing:.2px}
+.brand span{color:var(--primary)}
+header nav{margin-left:auto;display:flex;gap:18px;font-size:14px}
+header nav a{color:var(--muted)}
+header nav a:hover{color:var(--text);text-decoration:none}
+.hero{padding:64px 0 40px;text-align:center}
+.hero h1{font-size:clamp(26px,5vw,42px);line-height:1.25;margin:0 0 16px;font-weight:700}
+.hero h1 em{color:var(--primary);font-style:normal}
+.hero p{color:var(--muted);max-width:640px;margin:0 auto 28px;font-size:17px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:13px 26px;border-radius:999px;font-weight:600;font-size:15px;
+  background:var(--primary);color:#22005d;transition:transform .15s ease,opacity .15s;
+}
+.btn:hover{transform:translateY(-1px);text-decoration:none;opacity:.92}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.shot{margin:40px auto 0;max-width:340px;border-radius:26px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.shot img{display:block;width:100%;height:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;padding:48px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.card h3{margin:0 0 8px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+section{padding:20px 0}
+h2{font-size:clamp(20px,3.4vw,26px);margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 22px;font-size:15px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px}
+details[open]{background:var(--surface2)}
+summary{cursor:pointer;font-weight:600;font-size:15.5px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";color:var(--primary);margin-right:10px;font-weight:700}
+details[open] summary::before{content:"−"}
+details p{margin:12px 0 0;color:var(--muted);font-size:14.5px}
+.warn{
+  border-left:3px solid #b3261e;background:rgba(179,38,30,.10);
+  border-radius:10px;padding:16px 20px;color:var(--text);font-size:14.5px;margin:12px 0;
+}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:28px 0 48px;color:var(--muted);font-size:13.5px;text-align:center}
+footer a{color:var(--muted)}
+code{background:var(--surface2);padding:2px 6px;border-radius:6px;font-size:13px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "小乔跑跑",
+      "alternateName": ["XiaoQiao PaoPao", "xiaoqiao-treadmill"],
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Android 6.0+",
+      "description": "小乔 SmartRun 跑步机的开源离线控制端：局域网直连，支持配网、课程、语音播报与运动记录，不依赖厂商服务器。",
+      "url": "https://bejaylee.github.io/xiaoqiao-treadmill/",
+      "downloadUrl": "https://github.com/bejaylee/xiaoqiao-treadmill/releases/latest",
+      "softwareVersion": "1.0.2",
+      "license": "https://github.com/bejaylee/xiaoqiao-treadmill/blob/main/LICENSE",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "小乔跑步机官方 App 还能用吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "取决于厂家服务器是否仍在运行。本项目不修改、不冒充官方 App；官方 App 一旦无法登录或连不上设备，本项目的 App 仍可通过局域网直连控制跑步机。"}
+        },
+        {
+          "@type": "Question",
+          "name": "小乔跑步机 App 连不上、登录不了怎么办？",
+          "acceptedAnswer": {"@type": "Answer", "text": "先确认手机与跑步机连同一个 2.4 GHz WiFi；若跑步机面板仍能开关机调速，说明机器正常，官方 App 卡在登录通常是服务器失效，只能改用本地控制方案。"}
+        },
+        {
+          "@type": "Question",
+          "name": "支持哪些型号？别的型号能用吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "只在一台小乔 SmartRun 上完整实测（factory=1、model=13、WiFi 固件 30）。其它型号的帧长与字段偏移未验证，请先抓包核对协议。"}
+        },
+        {
+          "@type": "Question",
+          "name": "需要拆机或刷固件吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不需要。协议走 WiFi 局域网，本项目刻意不触碰固件升级通道。"}
+        },
+        {
+          "@type": "Question",
+          "name": "配网怎么做？",
+          "acceptedAnswer": {"@type": "Answer", "text": "还原的是 ESP-Touch v2。跑步机待机时长按面板减号键 5 秒进入配网态，再用工具发送 WiFi 账号密码。ESP 模块仅支持 2.4 GHz。"}
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">小乔<span>跑跑</span></div>
+    <nav>
+      <a href="#features">功能</a>
+      <a href="#faq">常见问题</a>
+      <a href="https://github.com/bejaylee/xiaoqiao-treadmill">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1>小乔跑步机 App 停服了？<br><em>用一个离线 App 继续跑</em></h1>
+    <p>官方「小乔快跑」连不上、登录不了，机器本身却没坏。小乔跑跑用逆向还原的局域网协议直接控制跑步机——无账号、无云端、不依赖厂商服务器。</p>
+    <div class="btns">
+      <a class="btn" href="https://github.com/bejaylee/xiaoqiao-treadmill/releases/latest">下载 APK</a>
+      <a class="btn ghost" href="https://github.com/bejaylee/xiaoqiao-treadmill">查看源码</a>
+    </div>
+    <div class="shot">
+      <img src="screenshots/01-sport.png" alt="小乔跑跑 App 运动主页：调速、限时与实时数据" loading="lazy" width="1080" height="2340">
+    </div>
+  </div>
+
+  <div class="grid" id="features">
+    <div class="card">
+      <h3>局域网直连</h3>
+      <p>UDP 19032 自动发现、TCP 12304 控制，不经过任何服务器。断线自动重连。</p>
+    </div>
+    <div class="card">
+      <h3>课程与沉浸页</h3>
+      <p>7 门 K1–K4 课程，也可用一句话自定义。运行中显示超大速度、本段剩余与下一阶段。</p>
+    </div>
+    <div class="card">
+      <h3>离线语音播报</h3>
+      <p>115 句内置中文音频，开场、分段、完成全程播报，完全不走系统 TTS。</p>
+    </div>
+    <div class="card">
+      <h3>运动记录</h3>
+      <p>日历热力图与明细统计，数据只存手机本地，没有账号也没有遥测。</p>
+    </div>
+    <div class="card">
+      <h3>配网向导</h3>
+      <p>还原 ESP-Touch v2，让跑步机重新连上 2.4 GHz WiFi，不需要官方 App。</p>
+    </div>
+    <div class="card">
+      <h3>零依赖</h3>
+      <p>纯 Java + Android SDK，无 AndroidX、无 Material、无 Gradle 依赖，源码可直接审阅。</p>
+    </div>
+  </div>
+
+  <section id="faq">
+    <h2>常见问题</h2>
+    <p class="sub">关于官方 App 失效、型号兼容与安全性的说明</p>
+
+    <details open>
+      <summary>小乔跑步机官方 App 还能用吗？</summary>
+      <p>取决于厂家服务器是否仍在运行。本项目不修改、不冒充官方 App。官方 App 一旦无法登录或连不上设备，本项目的 App 仍可通过局域网直连控制跑步机。</p>
+    </details>
+
+    <details>
+      <summary>小乔跑步机 App 连不上、登录不了怎么办？</summary>
+      <p>先确认手机与跑步机连同一个 2.4 GHz WiFi。如果跑步机面板仍能开关机、调速，说明机器本身正常；官方 App 卡在登录或加载，通常是服务器侧失效——这部分无法修复，只能改用本地控制方案。</p>
+    </details>
+
+    <details>
+      <summary>支持哪些型号？我的是别的型号能用吗？</summary>
+      <p>目前只在一台小乔 SmartRun 上做过完整实测（<code>factory=1</code> / <code>model=13</code> / WiFi 固件 <code>30</code>）。原厂 App 里能看到多型号框架，但其它型号的帧长、字段偏移、速度上限都没有验证。不同型号请先抓广播与状态帧核对协议，再空载试控制命令。</p>
+    </details>
+
+    <details>
+      <summary>需要拆机、刷固件或者改硬件吗？</summary>
+      <p>都不需要。协议走 WiFi 局域网。本项目也刻意不碰固件升级通道——刷坏无法恢复。</p>
+    </details>
+
+    <details>
+      <summary>配网（让跑步机连 WiFi）怎么做？</summary>
+      <p>还原的是 ESP-Touch v2（乐鑫 SmartConfig）。跑步机待机时长按面板「−」键 5 秒进入配网态，然后用项目里的配网工具发送 WiFi 账号密码。ESP 模块只支持 2.4 GHz。</p>
+    </details>
+
+    <details>
+      <summary>运动数据存在哪里？会上传吗？</summary>
+      <p>全部存在手机本地，没有账号、没有云同步、没有遥测。卸载 App 会一并删除记录，重要数据请用分享卡导出。</p>
+    </details>
+
+    <details>
+      <summary>为什么只有 Android，没有 iOS？</summary>
+      <p>iOS 不允许普通应用做 ESP-Touch 所需的底层 WiFi 帧注入，也限制长连接后台运行。Android 侧没有这些限制。</p>
+    </details>
+  </section>
+
+  <section>
+    <h2>安全须知</h2>
+    <div class="warn">
+      <strong>先空载验证。</strong>发送速度命令时人不要站在跑带上。<br>
+      <strong><code>off</code> 是切断动力，不是暂停。</strong>真人在跑带上时不要用它当暂停键。<br>
+      <strong>务必夹好物理急停夹 / 安全锁。</strong>不要触碰固件升级通道。
+    </div>
+  </section>
+
+  <footer>
+    小乔跑跑 · MIT License ·
+    <a href="https://github.com/bejaylee/xiaoqiao-treadmill">GitHub 仓库</a> ·
+    <a href="https://github.com/bejaylee/xiaoqiao-treadmill/blob/main/PROTOCOL.md">协议文档</a>
+    <p>仅用于恢复你自己拥有的设备，与跑步机厂商无关。</p>
+  </footer>
+</main>
+
+</body>
+</html>
