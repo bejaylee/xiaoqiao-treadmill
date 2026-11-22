@@ -1,0 +1,19 @@
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity;->handleData(I [I)V
+   const/4                v0, 1
+   if-ne                  v2, v0, +021h
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;-><init>()V
+   invoke-virtual         v2, v3, Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;->decode([I)Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   move-result-object     v2
+   iput-object            v2, v1, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDataModel01 Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   iget-object            v2, v1, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDataModel01 Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   if-eqz                 v2, +00bh
+   invoke-direct          v1, v2, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showData(Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;)V
+   iget-object            v2, v1, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDataModel01 Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   invoke-direct          v1, v2, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->setView(Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;)V
+   goto                   +8h
+   iget-object            v2, v1, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   const-string           v3, "date mode null"
+   invoke-static          v2, v3, Lcom/qiaosports/xqiao/util/LogUtil;->e(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            

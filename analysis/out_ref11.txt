@@ -1,0 +1,352 @@
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->getCmd()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->cmd I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->getData()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->data I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->cmd I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->data I
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$10;->onTimerFinished()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 2
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   iget-object            v1, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$10;->this$0 Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;
+   invoke-static          v1, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->access$1100(Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;)I
+   move-result            v1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$10;->this$0 Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;
+   invoke-static          v0, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->access$1200(Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;)Ljava/lang/String;
+   move-result-object     v0
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v2, "设置速度： "
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget-object            v2, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$10;->this$0 Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;
+   invoke-static          v2, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->access$1100(Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;)I
+   move-result            v2
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$9;->onTimerFinished()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   const/4                v1, 2
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity$9;->this$0 Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;
+   invoke-static          v0, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->access$1000(Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;)Ljava/lang/String;
+   move-result-object     v0
+   const-string           v1, "开机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity$3;->onTimerFinished()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 2
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   iget-object            v1, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity$3;->this$0 Lcom/qiaosports/xqiao/feature/activity/RunActivity;
+   invoke-static          v1, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->access$200(Lcom/qiaosports/xqiao/feature/activity/RunActivity;)I
+   move-result            v1
+   mul-int/lit8           v1, v1, 10
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity$3;->this$0 Lcom/qiaosports/xqiao/feature/activity/RunActivity;
+   invoke-static          v0, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->access$300(Lcom/qiaosports/xqiao/feature/activity/RunActivity;)Ljava/lang/String;
+   move-result-object     v0
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v2, "设置速度： "
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget-object            v2, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity$3;->this$0 Lcom/qiaosports/xqiao/feature/activity/RunActivity;
+   invoke-static          v2, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->access$200(Lcom/qiaosports/xqiao/feature/activity/RunActivity;)I
+   move-result            v2
+   mul-int/lit8           v2, v2, 10
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   invoke-virtual         v4, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->dataLength()I
+   move-result            v0
+   new-array              v0, v0, [I
+   invoke-virtual         v4, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->dataCmd()I
+   move-result            v1
+   const/4                v2, 0
+   aput                   v1, v0, v2
+   invoke-virtual         v4, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->cmdLength()I
+   move-result            v1
+   const/4                v3, 1
+   aput                   v1, v0, v3
+   invoke-virtual         v5, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->getCmd()I
+   move-result            v1
+   const/4                v3, 2
+   aput                   v1, v0, v3
+   invoke-virtual         v5, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->getData()I
+   move-result            v5
+   const/4                v1, 3
+   aput                   v5, v0, v1
+   const/4                v5, 4
+   aput                   v2, v0, v5
+   const/4                v5, 5
+   aput                   v2, v0, v5
+   invoke-static          v0, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToByteArray([I)[B
+   move-result-object     v5
+   return-object          v5
+
+### Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Ljava/lang/Object;)[B
+   check-cast             v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v1
+   return-object          v1
+
+### Lcom/qiaosports/xqiao/feature/fragment/FreeModeFragment;->stopRun()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   const-string           v0, "FreeModeFragment"
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/fragment/CoachModeFragment;->stopRun()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   const-string           v0, "CoachModeFragment"
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->QueryStatus()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 0
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->TAG Ljava/lang/String;
+   const-string           v1, "查询跑步机状态"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/FirmwareUpgradeActivity;->stopRun()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/FirmwareUpgradeActivity;->TAG Ljava/lang/String;
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->queryStatus()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 0
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->TAG Ljava/lang/String;
+   const-string           v1, "查询跑步机状态"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->stopRun()V
+   iget-boolean           v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->isFinish Z
+   if-eqz                 v0, +009h
+   const                  v0, 2131755235
+   invoke-static          v0, Lcom/qiaosports/xqiao/util/ToastUtil;->show(I)V
+   return-void            
+   const/4                v0, 3
+   iput                   v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->mPower I
+   invoke-virtual         v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->showStopDialog()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->TAG Ljava/lang/String;
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   const/4                v0, 0
+   iput-boolean           v0, v3, Lcom/qiaosports/xqiao/feature/activity/ImitateRunActivity;->isStart Z
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity;->queryStatus()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 0
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   const-string           v1, "查询跑步机状态"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity;->startRun()V
+   iget                   v0, v4, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   const/16               v1, 100
+   if-ne                  v0, v1, +009h
+   const                  v0, 2131755406
+   invoke-static          v0, Lcom/qiaosports/xqiao/util/ToastUtil;->show(I)V
+   return-void            
+   invoke-virtual         v4, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showStartDialog()V
+   const/4                v0, 1
+   iput-boolean           v0, v4, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->fromApp Z
+   new-instance           v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   const/4                v2, 2
+   invoke-virtual         v1, v2, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v2
+   new-instance           v3, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v3, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v3, v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v1
+   invoke-virtual         v2, v1, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v1, v4, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   const-string           v2, "开机命令"
+   invoke-static          v1, v2, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   iput-boolean           v0, v4, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->isStart Z
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity;->stopRun()V
+   iget                   v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   const/16               v1, 100
+   if-ne                  v0, v1, +00dh
+   const                  v0, 2131755406
+   invoke-virtual         v3, v0, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->getString(I)Ljava/lang/String;
+   move-result-object     v0
+   invoke-static          v0, Lcom/qiaosports/xqiao/util/ToastUtil;->show(Ljava/lang/String;)V
+   return-void            
+   const/4                v0, 3
+   iput                   v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPower I
+   invoke-virtual         v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showStopDialog()V
+   const/4                v0, 0
+   iput-boolean           v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->fromApp Z
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/RunInfoActivity;->stopRun()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 1
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/RunInfoActivity;->TAG Ljava/lang/String;
+   const-string           v1, "关机命令"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+TOTAL METHODS: 19

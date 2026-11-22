@@ -1,0 +1,243 @@
+
+### Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showData(Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;)V
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getPower()I
+   move-result            v0
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPower I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPauseMileage I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getMileage()I
+   move-result            v1
+   add-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mMileage I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getSpeed()I
+   move-result            v0
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mSpeed I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getHeart_rate()I
+   move-result            v0
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mHeartRate I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPauseCalorie I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getCalorie()I
+   move-result            v1
+   add-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCalorie I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPauseStep I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getStep()I
+   move-result            v1
+   add-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mStep I
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v2, "isstart :"
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget-boolean           v2, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->isStart Z
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v2, "JJFTIME :"
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getDuration()I
+   move-result            v2
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getPower()I
+   move-result            v0
+   const/4                v1, 2
+   if-ne                  v0, v1, +172h
+   iget-boolean           v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->isStart Z
+   if-eqz                 v0, +16eh
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPauseDuration I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getDuration()I
+   move-result            v1
+   add-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDuration I
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->TAG Ljava/lang/String;
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getDuration()I
+   move-result            v0
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentInfoSecond I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getPercentage()I
+   move-result            v0
+   const/4                v1, 1
+   sub-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getPercentage()I
+   move-result            v0
+   const/16               v2, 100
+   if-ne                  v0, v2, +004h
+   iput                   v2, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getMode()I
+   move-result            v0
+   const/16               v3, 33
+   if-ne                  v0, v3, +0b7h
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getMode_index()I
+   move-result            v0
+   if-eqz                 v0, +009h
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getMode_index()I
+   move-result            v0
+   sub-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mIndex I
+   iget-boolean           v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->isFirstInit Z
+   const/4                v4, 0
+   if-nez                 v0, +030h
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mTotalConsume I
+   iget                   v5, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   mul-int                v0, v0, v5
+   div-int/2addr          v0, v2
+   const/4                v5, 0
+   const/4                v6, 0
+   iget                   v7, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mIndex I
+   if-ge                  v5, v7, +014h
+   iget-object            v7, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDbRunInfos Lio/realm/RealmResults;
+   invoke-virtual         v7, v5, Lio/realm/RealmResults;->get(I)Ljava/lang/Object;
+   move-result-object     v7
+   check-cast             v7, Lcom/qiaosports/xqiao/model/db/DbRunInfo;
+   invoke-virtual         v7, Lcom/qiaosports/xqiao/model/db/DbRunInfo;->getTime_consume()I
+   move-result            v7
+   mul-int/lit8           v7, v7, 60
+   add-int/2addr          v6, v7
+   add-int/lit8           v5, v5, 1
+   goto                   -15h
+   iget                   v5, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   if-gt                  v5, v1, +006h
+   sub-int/2addr          v0, v6
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mBeforeStageTime I
+   goto                   +6h
+   sub-int/2addr          v0, v6
+   add-int/lit8           v0, v0, -8
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mBeforeStageTime I
+   iput-boolean           v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->isFirstInit Z
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentIndex I
+   iget                   v5, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mIndex I
+   if-eq                  v0, v5, +049h
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mMode I
+   if-ne                  v0, v3, +007h
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mRpcProgress Lcom/qiaosports/xqiao/view/RunPercentCircle;
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/view/RunPercentCircle;->setProgress(I)V
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mIndex I
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentIndex I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mNumber I
+   add-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mNumber I
+   iput                   v4, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->total I
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDbRunInfos Lio/realm/RealmResults;
+   iget                   v4, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentIndex I
+   invoke-virtual         v0, v4, Lio/realm/RealmResults;->get(I)Ljava/lang/Object;
+   move-result-object     v0
+   check-cast             v0, Lcom/qiaosports/xqiao/model/db/DbRunInfo;
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/model/db/DbRunInfo;->getTime_consume()I
+   move-result            v0
+   mul-int/lit8           v0, v0, 60
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mStageTime I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mNumber I
+   if-le                  v0, v1, +01fh
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mNumber I
+   if-ge                  v1, v0, +01bh
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->total I
+   iget-object            v4, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDbRunInfos Lio/realm/RealmResults;
+   iget                   v5, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mIndex I
+   sub-int/2addr          v5, v1
+   invoke-virtual         v4, v5, Lio/realm/RealmResults;->get(I)Ljava/lang/Object;
+   move-result-object     v4
+   check-cast             v4, Lcom/qiaosports/xqiao/model/db/DbRunInfo;
+   invoke-virtual         v4, Lcom/qiaosports/xqiao/model/db/DbRunInfo;->getTime_consume()I
+   move-result            v4
+   mul-int/lit8           v4, v4, 60
+   add-int/2addr          v0, v4
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->total I
+   add-int/lit8           v1, v1, 1
+   goto                   -1ch
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mBeforeStageTime I
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDuration I
+   add-int/2addr          v0, v1
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->total I
+   sub-int/2addr          v0, v1
+   iput                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentStageDuration I
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mMode I
+   if-ne                  v0, v3, +00eh
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mRpcProgress Lcom/qiaosports/xqiao/view/RunPercentCircle;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentStageDuration I
+   mul-int/lit8           v1, v1, 100
+   iget                   v3, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mStageTime I
+   div-int/2addr          v1, v3
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/view/RunPercentCircle;->setProgress(I)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mNpvProgress Lcom/qiaosports/xqiao/view/NumberHorizontalProgressBar;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/view/NumberHorizontalProgressBar;->setProgress(I)V
+   iget                   v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mPercentage I
+   if-ne                  v0, v2, +005h
+   invoke-direct          v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showFinishDialog()V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mRunInfoAdapter Lcom/qiaosports/xqiao/feature/adapter/RunInfoAdapter;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCurrentIndex I
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/feature/adapter/RunInfoAdapter;->setSelect(I)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->tvRunMileage Landroid/widget/TextView;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mMileage I
+   mul-int/lit8           v1, v1, 10
+   invoke-static          v1, Lcom/qiaosports/xqiao/util/DataFormat;->getFormatMileage(I)Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->tvRunSpeed Landroid/widget/TextView;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mSpeed I
+   invoke-static          v1, Lcom/qiaosports/xqiao/util/DataFormat;->getFormatSPeed(I)Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->tvRunHeartRate Landroid/widget/TextView;
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   iget                   v2, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mHeartRate I
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v2, ""
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   const/high16           v0, 1114636288
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mSpeed I
+   int-to-float           v1, v1
+   const/high16           v2, 1092616192
+   div-float/2addr        v1, v2
+   div-float/2addr        v0, v1
+   float-to-double        v0, v0
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/DataFormat;->getFormatSpeedAllocation(D)Ljava/lang/String;
+   move-result-object     v0
+   iget-object            v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mTvSpeedAllocation Landroid/widget/TextView;
+   invoke-virtual         v1, v0, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->tvRunCalorie Landroid/widget/TextView;
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   iget                   v2, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mCalorie I
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v2, ""
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mTvTimeValue Landroid/widget/TextView;
+   iget                   v1, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mDuration I
+   invoke-static          v1, Lcom/qiaosports/xqiao/util/DataFormat;->getFormatTime(I)Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   iget-object            v0, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->tvRunStep Landroid/widget/TextView;
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   iget                   v2, v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->mStep I
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v2, ""
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+   invoke-virtual         v9, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->getPower()I
+   move-result            v0
+   const/4                v1, 4
+   if-ne                  v0, v1, +008h
+   invoke-direct          v8, v9, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->showError(Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;)V
+   invoke-direct          v8, Lcom/qiaosports/xqiao/feature/activity/RunActivity;->savePauseStatus()V
+   return-void            

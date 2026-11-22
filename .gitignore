@@ -1,0 +1,19 @@
+# 私有发布证书与凭据（不入库）
+release.keystore
+keystore.properties
+debug.keystore
+*.apk
+*.jks
+build-manual/
+gh-token.txt
+*.log
+
+# 原厂 APK 与逆向中间产物：仅本地证据，不入库
+analysis/base.apk
+work/
+
+# 本地截图与预览中间产物（精选截图放 docs/screenshots/ 入库）
+test-results/
+ui-preview/
+*.pyc
+__pycache__/

@@ -1,0 +1,93 @@
+
+### Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->QueryStatus()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;-><init>()V
+   const/4                v1, 0
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setCmd(I)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;->setData(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;-><init>()V
+   invoke-virtual         v2, v0, Lcom/qiaosports/xqiao/socket/codec/encode/Encode11;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel11;)[B
+   move-result-object     v0
+   invoke-virtual         v1, v0, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->send([B)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->TAG Ljava/lang/String;
+   const-string           v1, "查询跑步机状态"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->connectSocket()V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->mDeviceInfoParcelable Lcom/qiaosports/xqiao/model/parcelable/DeviceInfoParcelable;
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/model/parcelable/DeviceInfoParcelable;->getIp()Ljava/lang/String;
+   move-result-object     v0
+   invoke-static          v0, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+   move-result            v0
+   if-eqz                 v0, +00ah
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->TAG Ljava/lang/String;
+   const-string           v1, "Ip is empty!"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->e(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+   invoke-static          v3, Lcom/qiaosports/xqiao/util/AppUtils;->isWifiConnected(Landroid/content/Context;)Z
+   move-result            v0
+   if-nez                 v0, +03ah
+   new-instance           v0, Landroid/support/v7/app/AlertDialog$Builder;
+   invoke-direct          v0, v3, Landroid/support/v7/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+   const                  v1, 2131755078
+   new-instance           v2, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$3;
+   invoke-direct          v2, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$3;-><init>(Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;)V
+   invoke-virtual         v0, v1, v2, Landroid/support/v7/app/AlertDialog$Builder;->setPositiveButton(I Landroid/content/DialogInterface$OnClickListener;)Landroid/support/v7/app/AlertDialog$Builder;
+   move-result-object     v0
+   const                  v1, 2131755054
+   invoke-virtual         v3, v1, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->getString(I)Ljava/lang/String;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$2;
+   invoke-direct          v2, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$2;-><init>(Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;)V
+   invoke-virtual         v0, v1, v2, Landroid/support/v7/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence; Landroid/content/DialogInterface$OnClickListener;)Landroid/support/v7/app/AlertDialog$Builder;
+   move-result-object     v0
+   const/4                v1, 0
+   invoke-virtual         v0, v1, Landroid/support/v7/app/AlertDialog$Builder;->setCancelable(Z)Landroid/support/v7/app/AlertDialog$Builder;
+   move-result-object     v0
+   const                  v1, 2131755079
+   invoke-virtual         v0, v1, Landroid/support/v7/app/AlertDialog$Builder;->setMessage(I)Landroid/support/v7/app/AlertDialog$Builder;
+   move-result-object     v0
+   const                  v1, 2131755080
+   invoke-virtual         v0, v1, Landroid/support/v7/app/AlertDialog$Builder;->setTitle(I)Landroid/support/v7/app/AlertDialog$Builder;
+   move-result-object     v0
+   invoke-virtual         v0, Landroid/support/v7/app/AlertDialog$Builder;->show()Landroid/support/v7/app/AlertDialog;
+   return-void            
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->tvConnectTips Landroid/widget/TextView;
+   const                  v1, 2131755077
+   invoke-virtual         v0, v1, Landroid/widget/TextView;->setText(I)V
+   invoke-static          Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->getInstance()Lcom/qiaosports/xqiao/socket/tcp/TcpClient;
+   move-result-object     v0
+   iget-object            v1, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->mDeviceInfoParcelable Lcom/qiaosports/xqiao/model/parcelable/DeviceInfoParcelable;
+   invoke-virtual         v1, Lcom/qiaosports/xqiao/model/parcelable/DeviceInfoParcelable;->getIp()Ljava/lang/String;
+   move-result-object     v1
+   const/16               v2, 12304
+   invoke-virtual         v0, v1, v2, Lcom/qiaosports/xqiao/socket/tcp/TcpClient;->connect(Ljava/lang/String; I)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->percentCircle Lcom/qiaosports/xqiao/view/PercentCircle;
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/view/PercentCircle;->startAnim()V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->btnWifiConfigConfirm Landroid/widget/Button;
+   const                  v1, 2131755075
+   invoke-virtual         v0, v1, Landroid/widget/Button;->setText(I)V
+   invoke-direct          v3, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->dataRecord()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->onCreate(Landroid/os/Bundle;)V
+   invoke-super           v1, v2, Lcom/qiaosports/xqiao/base/BaseActivity;->onCreate(Landroid/os/Bundle;)V
+   invoke-static          Lio/realm/Realm;->getDefaultInstance()Lio/realm/Realm;
+   move-result-object     v2
+   iput-object            v2, v1, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->mRealm Lio/realm/Realm;
+   const-class            v2, Lcom/qiaosports/xqiao/model/db/DbLastFreeRun;
+   invoke-static          v2, Lcom/qiaosports/xqiao/db/RealmHelper;->delete(Ljava/lang/Class;)V
+   const-class            v2, Lcom/qiaosports/xqiao/model/db/DbLastPlanRun;
+   invoke-static          v2, Lcom/qiaosports/xqiao/db/RealmHelper;->delete(Ljava/lang/Class;)V
+   invoke-direct          v1, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->initData()V
+   const                  v2, 2131296405
+   invoke-virtual         v1, v2, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;->findViewById(I)Landroid/view/View;
+   move-result-object     v2
+   new-instance           v0, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$1;
+   invoke-direct          v0, v1, Lcom/qiaosports/xqiao/feature/activity/ConnectActivity$1;-><init>(Lcom/qiaosports/xqiao/feature/activity/ConnectActivity;)V
+   invoke-virtual         v2, v0, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+   return-void            

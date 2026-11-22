@@ -1,0 +1,144 @@
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;-><init>()V
+   invoke-direct          v1, Ljava/lang/Object;-><init>()V
+   const/4                v0, 2
+   new-array              v0, v0, [I
+   fill-array-data        v0, +0000006h
+   iput-object            v0, v1, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->Suffix [I
+   return-void            
+   fill-array-data-payload b'\r\x00\x00\x00\n\x00\x00\x00' | \x0d\x00\x00\x00\x0a\x00\x00\x00
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->PrintData([I)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->init(Ljava/net/Socket;)V
+   const/4                v0, 1
+   iput-boolean           v0, v1, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->runFlag Z
+   iput-object            v2, v1, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->socket Ljava/net/Socket;
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->onDisconnect()V
+  [abstract]
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->onReceive([I)V
+  [abstract]
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->run()V
+   const/4                v0, 0
+   new-instance           v1, Ljava/io/DataInputStream;
+   iget-object            v2, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->socket Ljava/net/Socket;
+   invoke-virtual         v2, Ljava/net/Socket;->getInputStream()Ljava/io/InputStream;
+   move-result-object     v2
+   invoke-direct          v1, v2, Ljava/io/DataInputStream;-><init>(Ljava/io/InputStream;)V
+   iput-object            v1, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->in Ljava/io/DataInputStream;
+   new-instance           v1, Ljava/io/DataOutputStream;
+   iget-object            v2, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->socket Ljava/net/Socket;
+   invoke-virtual         v2, Ljava/net/Socket;->getOutputStream()Ljava/io/OutputStream;
+   move-result-object     v2
+   invoke-direct          v1, v2, Ljava/io/DataOutputStream;-><init>(Ljava/io/OutputStream;)V
+   iput-object            v1, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->out Ljava/io/DataOutputStream;
+   goto                   +7h
+   move-exception         v1
+   invoke-virtual         v1, Ljava/io/IOException;->printStackTrace()V
+   iput-boolean           v0, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->runFlag Z
+   iget-boolean           v1, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->runFlag Z
+   if-eqz                 v1, +060h
+   new-instance           v1, Ljava/util/ArrayList;
+   invoke-direct          v1, Ljava/util/ArrayList;-><init>()V
+   const/4                v2, 0
+   const/4                v3, -1
+   iget-object            v4, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->in Ljava/io/DataInputStream;
+   invoke-virtual         v4, Ljava/io/DataInputStream;->read()I
+   move-result            v4
+   iput                   v4, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->data I
+   if-eq                  v3, v4, -013h
+   iget                   v3, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->data I
+   invoke-static          v3, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+   move-result-object     v3
+   invoke-interface       v1, v3, Ljava/util/List;->add(Ljava/lang/Object;)Z
+   iget                   v3, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->data I
+   iget-object            v4, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->Suffix [I
+   aget                   v4, v4, v2
+   if-ne                  v3, v4, +005h
+   add-int/lit8           v2, v2, 1
+   goto                   +2h
+   const/4                v2, 0
+   iget-object            v3, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->Suffix [I
+   array-length           v3, v3
+   if-ne                  v2, v3, -023h
+   invoke-interface       v1, Ljava/util/List;->size()I
+   move-result            v2
+   iget-object            v3, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->Suffix [I
+   array-length           v3, v3
+   sub-int/2addr          v2, v3
+   if-lez                 v2, -037h
+   new-array              v3, v2, [I
+   invoke-interface       v1, Ljava/util/List;->iterator()Ljava/util/Iterator;
+   move-result-object     v1
+   const/4                v4, 0
+   if-ge                  v4, v2, +011h
+   invoke-interface       v1, Ljava/util/Iterator;->next()Ljava/lang/Object;
+   move-result-object     v5
+   check-cast             v5, Ljava/lang/Integer;
+   invoke-virtual         v5, Ljava/lang/Integer;->intValue()I
+   move-result            v5
+   aput                   v5, v3, v4
+   add-int/lit8           v4, v4, 1
+   goto                   -10h
+   invoke-virtual         v6, v3, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->onReceive([I)V
+   invoke-direct          v6, v3, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->PrintData([I)V
+   goto                   -57h
+   move-exception         v1
+   invoke-virtual         v1, Ljava/io/IOException;->printStackTrace()V
+   iput-boolean           v0, v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->runFlag Z
+   invoke-virtual         v6, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->onDisconnect()V
+   goto                   -61h
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->send([B)V
+   new-instance           v0, Ljava/lang/StringBuilder;
+   invoke-direct          v0, Ljava/lang/StringBuilder;-><init>()V
+   const/4                v1, 0
+   array-length           v2, v4
+   add-int/lit8           v2, v2, -1
+   if-ge                  v1, v2, +00fh
+   aget-byte              v2, v4, v1
+   invoke-virtual         v0, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v2, " "
+   invoke-virtual         v0, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   add-int/lit8           v1, v1, 1
+   goto                   -11h
+   array-length           v1, v4
+   add-int/lit8           v1, v1, -1
+   aget-byte              v1, v4, v1
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, "send: "
+   invoke-virtual         v0, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v0
+   invoke-static          v1, v0, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   iget-object            v0, v3, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->out Ljava/io/DataOutputStream;
+   if-eqz                 v0, +00fh
+   invoke-virtual         v0, v4, Ljava/io/DataOutputStream;->write([B)V
+   iget-object            v4, v3, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->out Ljava/io/DataOutputStream;
+   invoke-virtual         v4, Ljava/io/DataOutputStream;->flush()V
+   goto                   +5h
+   move-exception         v4
+   invoke-virtual         v4, Ljava/lang/Exception;->printStackTrace()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->stop()V
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->in Ljava/io/DataInputStream;
+   if-eqz                 v0, +018h
+   iget-object            v1, v2, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->out Ljava/io/DataOutputStream;
+   if-nez                 v1, +003h
+   goto                   +12h
+   const/4                v1, 0
+   iput-boolean           v1, v2, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->runFlag Z
+   invoke-virtual         v0, Ljava/io/DataInputStream;->close()V
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/tcp/TcpIO;->out Ljava/io/DataOutputStream;
+   invoke-virtual         v0, Ljava/io/DataOutputStream;->close()V
+   goto                   +5h
+   move-exception         v0
+   invoke-virtual         v0, Ljava/lang/Exception;->printStackTrace()V
+   return-void            
+   return-void            

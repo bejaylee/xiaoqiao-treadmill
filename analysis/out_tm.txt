@@ -1,0 +1,12 @@
+========================================================================
+CLASS Lcom/qiaosports/xqiao/socket/Port;
+  extends Ljava/lang/Object;
+  FIELD TCP I = None
+  FIELD UDP I = None
+------------------------------------------------------------
+METHOD <init>()V  (access=0x10001, regs=1)
+Traceback (most recent call last):
+  File "C:\Users\bejay\WorkBuddy\spaces\2026_11_21_14-29-01\xiaoqiao\work\dump.py", line 27, in <module>
+    print("   %04x  %-22s %s" % (ins.get_address(), ins.get_name(), ins.get_output()))
+                                 ^^^^^^^^^^^^^^^
+AttributeError: 'Instruction35c' object has no attribute 'get_address'

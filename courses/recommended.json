@@ -1,0 +1,777 @@
+{
+  "source": "推荐课程",
+  "note": "从推荐课程的分段表复刻。坡度字段保留但本机不支持，恒为 0。",
+  "courses": [
+    {
+      "id": "preset_aerobic_jog",
+      "name": "有氧慢跑",
+      "level": "K2 初学",
+      "minutes": 33,
+      "kcal": "77-115",
+      "segments": [
+        {
+          "phase": "热身",
+          "action": "快走",
+          "speed": 5.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "热身",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 8.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 90
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 8.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 8.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 8.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "有氧",
+          "action": "慢跑",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 240
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 6.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 90
+        }
+      ]
+    },
+    {
+      "id": "preset_hiit_fatburn",
+      "name": "HIIT强化燃脂跑",
+      "level": "K3 进阶",
+      "minutes": 25,
+      "kcal": "189-283",
+      "segments": [
+        {
+          "phase": "热身激活",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身激活",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身激活",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "第一段燃脂跑",
+          "action": "快跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第一段燃脂跑",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第二段燃脂跑",
+          "action": "快跑",
+          "speed": 12.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第二段燃脂跑",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第三段燃脂跑",
+          "action": "快跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第三段燃脂跑",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第四段燃脂跑",
+          "action": "快跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第四段燃脂跑",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第五段燃脂跑",
+          "action": "快跑",
+          "speed": 12.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "第五段燃脂跑",
+          "action": "慢跑",
+          "speed": 8.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松恢复",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 120
+        }
+      ]
+    },
+    {
+      "id": "preset_fatburn_walk20",
+      "name": "20分钟燃脂走",
+      "level": "K1 零基础",
+      "minutes": 20,
+      "kcal": "120-180",
+      "segments": [
+        {
+          "phase": "热身激活",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身激活",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "放松恢复",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "放松恢复",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        }
+      ]
+    },
+    {
+      "id": "preset_miit_beginner",
+      "name": "MIIT初级燃脂跑",
+      "level": "K1 零基础",
+      "minutes": 20,
+      "kcal": "117-175",
+      "segments": [
+        {
+          "phase": "热身",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 180
+        }
+      ]
+    },
+    {
+      "id": "preset_fatburn_walk30",
+      "name": "30分钟燃脂走",
+      "level": "K2 初学",
+      "minutes": 30,
+      "kcal": "159-239",
+      "segments": [
+        {
+          "phase": "热身激活",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身激活",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 240
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "训练",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "训练",
+          "action": "疾速走",
+          "speed": 7.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松恢复",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松恢复",
+          "action": "慢走",
+          "speed": 4.0,
+          "incline": 0,
+          "seconds": 60
+        }
+      ]
+    },
+    {
+      "id": "preset_fatburn_challenge45",
+      "name": "综合燃脂挑战跑",
+      "level": "K4 强化",
+      "minutes": 45,
+      "kcal": "353-529",
+      "segments": [
+        {
+          "phase": "热身",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "热身",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 240
+        },
+        {
+          "phase": "上身动作练习",
+          "action": "快跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "上身动作练习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "上身动作练习",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "摆臂练习",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "摆臂练习",
+          "action": "快跑",
+          "speed": 12.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "摆臂练习",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "摆臂练习",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "呼吸练习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "呼吸练习",
+          "action": "快跑",
+          "speed": 12.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "呼吸练习",
+          "action": "慢跑",
+          "speed": 9.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "呼吸练习",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "步频练习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "步频练习",
+          "action": "快跑",
+          "speed": 12.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "步频练习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "步频练习",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "综合复习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "综合复习",
+          "action": "快跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "综合复习",
+          "action": "慢跑",
+          "speed": 10.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松恢复",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 180
+        }
+      ]
+    },
+    {
+      "id": "preset_hiit_varied",
+      "name": "HIIT变速跑",
+      "level": "K3 进阶",
+      "minutes": 26,
+      "declared_minutes": 27,
+      "kcal": "159-239",
+      "segments": [
+        {
+          "phase": "热身",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "热身",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "冲刺跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "冲刺跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "冲刺跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "冲刺跑",
+          "speed": 11.0,
+          "incline": 0,
+          "seconds": 60
+        },
+        {
+          "phase": "高强度间歇训练",
+          "action": "慢跑",
+          "speed": 7.0,
+          "incline": 0,
+          "seconds": 120
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 6.0,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 5.5,
+          "incline": 0,
+          "seconds": 180
+        },
+        {
+          "phase": "放松",
+          "action": "快走",
+          "speed": 5.0,
+          "incline": 0,
+          "seconds": 180
+        }
+      ]
+    }
+  ]
+}

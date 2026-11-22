@@ -1,0 +1,86 @@
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;-><init>()V
+   invoke-direct          v1, Ljava/lang/Object;-><init>()V
+   const/4                v0, 0
+   iput-boolean           v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->isClose Z
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient$1;
+   invoke-direct          v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient$1;-><init>(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)V
+   iput-object            v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->handler Landroid/os/Handler;
+   const/16               v0, 19032
+   iput                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mPort I
+   invoke-direct          v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->initUdp()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;-><init>(I)V
+   invoke-direct          v1, Ljava/lang/Object;-><init>()V
+   const/4                v0, 0
+   iput-boolean           v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->isClose Z
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient$1;
+   invoke-direct          v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient$1;-><init>(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)V
+   iput-object            v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->handler Landroid/os/Handler;
+   iput                   v2, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mPort I
+   invoke-direct          v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->initUdp()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$000(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)Lcom/qiaosports/xqiao/socket/udp/UdpDataListener;
+   iget-object            v0, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mUdpDataListener Lcom/qiaosports/xqiao/socket/udp/UdpDataListener;
+   return-object          v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$100(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)Ljava/net/DatagramSocket;
+   iget-object            v0, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mSocket Ljava/net/DatagramSocket;
+   return-object          v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$102(Lcom/qiaosports/xqiao/socket/udp/UdpClient; Ljava/net/DatagramSocket;)Ljava/net/DatagramSocket;
+   iput-object            v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mSocket Ljava/net/DatagramSocket;
+   return-object          v1
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$200(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)I
+   iget                   v0, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mPort I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$300(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)Z
+   iget-boolean           v0, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->isClose Z
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->access$400(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)Landroid/os/Handler;
+   iget-object            v0, v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->handler Landroid/os/Handler;
+   return-object          v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->initUdp()V
+   new-instance           v0, Ljava/lang/Thread;
+   new-instance           v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient$2;
+   invoke-direct          v1, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient$2;-><init>(Lcom/qiaosports/xqiao/socket/udp/UdpClient;)V
+   invoke-direct          v0, v1, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+   iput-object            v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mThread Ljava/lang/Thread;
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->close()V
+   const/4                v0, 1
+   iput-boolean           v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->isClose Z
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mSocket Ljava/net/DatagramSocket;
+   if-eqz                 v0, +00eh
+   const-string           v0, "UdpClient"
+   const-string           v1, "close socket"
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mSocket Ljava/net/DatagramSocket;
+   invoke-virtual         v0, Ljava/net/DatagramSocket;->close()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->receiveUdp()V
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mThread Ljava/lang/Thread;
+   invoke-virtual         v0, Ljava/lang/Thread;->isAlive()Z
+   move-result            v0
+   if-nez                 v0, +00eh
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mThread Ljava/lang/Thread;
+   invoke-virtual         v0, Ljava/lang/Thread;->start()V
+   const-string           v0, "UdpClient"
+   const-string           v1, "initSearch udp..."
+   invoke-static          v0, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpClient;->setOnUdpDataReceived(Lcom/qiaosports/xqiao/socket/udp/UdpDataListener;)V
+   iput-object            v2, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->mUdpDataListener Lcom/qiaosports/xqiao/socket/udp/UdpDataListener;
+   const-string           v2, "UdpClient"
+   const-string           v0, "set udp listener"
+   invoke-static          v2, v0, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   return-void            

@@ -1,0 +1,108 @@
+
+### Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;-><init>()V
+   invoke-direct          v0, Ljava/lang/Object;-><init>()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;->decode([I)Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   if-eqz                 v7, +0c6h
+   array-length           v0, v7
+   const/16               v1, 34
+   if-ne                  v0, v1, +0c1h
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;-><init>()V
+   const/4                v2, 0
+   aget                   v3, v7, v2
+   invoke-virtual         v0, v3, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setCmd(I)V
+   const/4                v3, 1
+   aget                   v4, v7, v3
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setLength(I)V
+   const/4                v4, 2
+   const/4                v5, 6
+   invoke-static          v7, v4, v5, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v4
+   invoke-static          v4, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v4
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setMileage(I)V
+   const/16               v4, 10
+   invoke-static          v7, v5, v4, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v5
+   invoke-static          v5, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v5
+   invoke-virtual         v0, v5, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setTime_start(I)V
+   const/16               v5, 14
+   invoke-static          v7, v4, v5, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v4
+   invoke-static          v4, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v4
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setTime_end(I)V
+   const/16               v4, 16
+   invoke-static          v7, v5, v4, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v5
+   invoke-static          v5, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v5
+   invoke-virtual         v0, v5, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setCalorie(I)V
+   const/16               v5, 18
+   invoke-static          v7, v4, v5, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v4
+   invoke-static          v4, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v4
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setDuration(I)V
+   aget                   v4, v7, v5
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setHeart_rate(I)V
+   const/16               v4, 19
+   aget                   v4, v7, v4
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setRest_time(I)V
+   const/16               v4, 20
+   aget                   v4, v7, v4
+   invoke-virtual         v0, v4, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setSpeed(I)V
+   const/16               v4, 21
+   aget                   v4, v7, v4
+   int-to-byte            v4, v4
+   invoke-static          v4, Lcom/qiaosports/xqiao/socket/SocketUtil;->byteToIntArray(B)[I
+   move-result-object     v4
+   aget                   v2, v4, v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setError(I)V
+   aget                   v2, v4, v3
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setPower(I)V
+   const/16               v2, 22
+   aget                   v2, v7, v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setMode(I)V
+   const/16               v2, 23
+   aget                   v2, v7, v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setMode_index(I)V
+   const/16               v2, 24
+   const/16               v3, 26
+   invoke-static          v7, v2, v3, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v2
+   invoke-static          v2, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setStep(I)V
+   aget                   v2, v7, v3
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setPersonOn(I)V
+   const/16               v2, 27
+   aget                   v2, v7, v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setFinish(I)V
+   const/16               v2, 28
+   aget                   v2, v7, v2
+   invoke-virtual         v0, v2, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setPercentage(I)V
+   const/16               v2, 32
+   invoke-static          v7, v2, v1, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   move-result-object     v7
+   invoke-static          v7, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt([I)I
+   move-result            v7
+   invoke-virtual         v0, v7, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->setChecksum(I)V
+   const-string           v7, "Decode01"
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v7, v1, Lcom/qiaosports/xqiao/util/LogUtil;->i(Ljava/lang/String; Ljava/lang/String;)V
+   return-object          v0
+   const-string           v7, "Decode01"
+   const-string           v0, "return null"
+   invoke-static          v7, v0, Lcom/qiaosports/xqiao/util/LogUtil;->e(Ljava/lang/String; Ljava/lang/String;)V
+   const/4                v7, 0
+   return-object          v7
+
+### Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;->decode([I)Ljava/lang/Object;
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/codec/decode/Decode01;->decode([I)Lcom/qiaosports/xqiao/socket/codec/decode/DataModel01;
+   move-result-object     v1
+   return-object          v1

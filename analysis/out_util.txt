@@ -1,0 +1,218 @@
+============================================================================
+CLASS Lcom/qiaosports/xqiao/socket/SocketUtil;
+  FIELD TAG Ljava/lang/String; = None
+------------------------------------------------------------------
+METHOD <init>()V
+   0000  invoke-direct            v0, Ljava/lang/Object;-><init>()V
+   000c  return-void              
+------------------------------------------------------------------
+METHOD byteArrayToInt([B)I
+   0000  array-length             v0, v5
+   0004  const/4                  v1, 0
+   0008  const/4                  v2, 0
+   000c  if-ge                    v1, v0, +00ch
+   0014  mul-int/lit8             v3, v1, 8
+   001c  aget-byte                v4, v5, v1
+   0024  shl-int                  v3, v4, v3
+   002c  add-int/2addr            v2, v3
+   0030  add-int/lit8             v1, v1, 1
+   0038  goto                     -bh
+   003c  return                   v2
+------------------------------------------------------------------
+METHOD byteArrayToInt2([B)I
+   0000  array-length             v0, v5
+   0004  const/4                  v1, 0
+   0008  const/4                  v2, 0
+   000c  if-ge                    v1, v0, +010h
+   0014  mul-int/lit8             v3, v1, 8
+   001c  sub-int                  v4, v0, v1
+   0024  add-int/lit8             v4, v4, -1
+   002c  aget-byte                v4, v5, v4
+   0034  shl-int                  v3, v4, v3
+   003c  add-int/2addr            v2, v3
+   0040  add-int/lit8             v1, v1, 1
+   0048  goto                     -fh
+   004c  return                   v2
+------------------------------------------------------------------
+METHOD byteToIntArray(B)[I
+   0000  const/4                  v0, 2
+   0004  new-array                v0, v0, [I
+   000c  and-int/lit16            v1, v3, 240
+   0014  shr-int/lit8             v1, v1, 4
+   001c  const/4                  v2, 0
+   0020  aput                     v1, v0, v2
+   0028  and-int/lit8             v3, v3, 15
+   0030  const/4                  v1, 1
+   0034  aput                     v3, v0, v1
+   003c  return-object            v0
+------------------------------------------------------------------
+METHOD bytesToInts([B)[I
+   0000  invoke-static            v1, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
+   000c  move-result-object       v1
+   0010  invoke-virtual           v1, Ljava/nio/ByteBuffer;->asIntBuffer()Ljava/nio/IntBuffer;
+   001c  move-result-object       v1
+   0020  invoke-virtual           v1, Ljava/nio/IntBuffer;->array()[I
+   002c  move-result-object       v1
+   0030  invoke-static            v1, Lcom/qiaosports/xqiao/socket/SocketUtil;->checkData([I)Z
+   003c  move-result              v0
+   0040  if-eqz                   v0, +003h
+   0048  return-object            v1
+   004c  const/4                  v1, 0
+   0050  return-object            v1
+------------------------------------------------------------------
+METHOD checkData([I)Z
+   0000  const/4                  v0, 2
+   0004  const/4                  v1, 0
+   0008  const/4                  v2, 2
+   000c  const/4                  v3, 0
+   0010  array-length             v4, v5
+   0014  sub-int/2addr            v4, v0
+   0018  if-ge                    v2, v4, +008h
+   0020  aget                     v4, v5, v2
+   0028  add-int/2addr            v3, v4
+   002c  add-int/lit8             v2, v2, 1
+   0034  goto                     -9h
+   0038  invoke-static            v5, Lcom/qiaosports/xqiao/socket/SocketUtil;->getCheck([I)I
+   0044  move-result              v5
+   0048  if-ne                    v3, v5, +003h
+   0050  const/4                  v1, 1
+   0054  return                   v1
+------------------------------------------------------------------
+METHOD getCheck([I)I
+   0000  array-length             v0, v2
+   0004  add-int/lit8             v1, v0, -2
+   000c  invoke-static            v2, v1, v0, Ljava/util/Arrays;->copyOfRange([I I I)[I
+   0018  move-result-object       v2
+   001c  invoke-static            v2, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToInt2([I)I
+   0028  move-result              v2
+   002c  return                   v2
+------------------------------------------------------------------
+METHOD getChecksum([B)I
+   0000  const/4                  v0, 0
+   0004  const/4                  v1, 2
+   0008  array-length             v2, v3
+   000c  if-ge                    v1, v2, +008h
+   0014  aget-byte                v2, v3, v1
+   001c  add-int/2addr            v0, v2
+   0020  add-int/lit8             v1, v1, 1
+   0028  goto                     -8h
+   002c  return                   v0
+------------------------------------------------------------------
+METHOD getChecksum([I)I
+   0000  const/4                  v0, 0
+   0004  const/4                  v1, 2
+   0008  array-length             v2, v3
+   000c  if-ge                    v1, v2, +008h
+   0014  aget                     v2, v3, v1
+   001c  add-int/2addr            v0, v2
+   0020  add-int/lit8             v1, v1, 1
+   0028  goto                     -8h
+   002c  return                   v0
+------------------------------------------------------------------
+METHOD intArrayToByteArray([I)[B
+   0000  invoke-static            v7, Lcom/qiaosports/xqiao/socket/SocketUtil;->getChecksum([I)I
+   000c  move-result              v0
+   0010  const/4                  v1, 2
+   0014  invoke-static            v0, v1, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray2(I I)[I
+   0020  move-result-object       v0
+   0024  array-length             v1, v7
+   0028  add-int/lit8             v1, v1, 4
+   0030  new-array                v1, v1, [B
+   0038  const/4                  v2, 0
+   003c  const/4                  v3, 0
+   0040  const/4                  v4, 0
+   0044  array-length             v5, v7
+   0048  if-ge                    v3, v5, +00dh
+   0050  aget                     v4, v7, v3
+   0058  int-to-byte              v4, v4
+   005c  aput-byte                v4, v1, v3
+   0064  add-int/lit8             v4, v3, 1
+   006c  move                     v6, v4
+   0070  move                     v4, v3
+   0074  move                     v3, v6
+   0078  goto                     -dh
+   007c  const/4                  v7, 1
+   0080  add-int/2addr            v4, v7
+   0084  add-int/lit8             v3, v4, 1
+   008c  aget                     v2, v0, v2
+   0094  int-to-byte              v2, v2
+   0098  aput-byte                v2, v1, v4
+   00a0  add-int/lit8             v2, v3, 1
+   00a8  aget                     v7, v0, v7
+   00b0  int-to-byte              v7, v7
+   00b4  aput-byte                v7, v1, v3
+   00bc  add-int/lit8             v7, v2, 1
+   00c4  const/16                 v0, 13
+   00cc  aput-byte                v0, v1, v2
+   00d4  const/16                 v0, 10
+   00dc  aput-byte                v0, v1, v7
+   00e4  return-object            v1
+------------------------------------------------------------------
+METHOD intArrayToInt([I)I
+   0000  array-length             v0, v5
+   0004  const/4                  v1, 0
+   0008  const/4                  v2, 0
+   000c  if-ge                    v1, v0, +00ch
+   0014  mul-int/lit8             v3, v1, 8
+   001c  aget                     v4, v5, v1
+   0024  shl-int                  v3, v4, v3
+   002c  add-int/2addr            v2, v3
+   0030  add-int/lit8             v1, v1, 1
+   0038  goto                     -bh
+   003c  return                   v2
+------------------------------------------------------------------
+METHOD intArrayToInt2([I)I
+   0000  array-length             v0, v5
+   0004  const/4                  v1, 0
+   0008  const/4                  v2, 0
+   000c  if-ge                    v1, v0, +00fh
+   0014  add-int/lit8             v3, v0, -1
+   001c  sub-int/2addr            v3, v1
+   0020  mul-int/lit8             v3, v3, 8
+   0028  aget                     v4, v5, v1
+   0030  shl-int                  v3, v4, v3
+   0038  add-int/2addr            v2, v3
+   003c  add-int/lit8             v1, v1, 1
+   0044  goto                     -eh
+   0048  return                   v2
+------------------------------------------------------------------
+METHOD intToByteArray(I I)[B
+   0000  new-array                v0, v5, [B
+   0008  const/4                  v1, 0
+   000c  if-ge                    v1, v5, +011h
+   0014  add-int/lit8             v2, v5, -1
+   001c  sub-int/2addr            v2, v1
+   0020  mul-int/lit8             v3, v1, 8
+   0028  shr-int                  v3, v4, v3
+   0030  and-int/lit16            v3, v3, 255
+   0038  int-to-byte              v3, v3
+   003c  aput-byte                v3, v0, v2
+   0044  add-int/lit8             v1, v1, 1
+   004c  goto                     -10h
+   0050  return-object            v0
+------------------------------------------------------------------
+METHOD intToIntArray(I I)[I
+   0000  new-array                v0, v4, [I
+   0008  const/4                  v1, 0
+   000c  if-ge                    v1, v4, +00dh
+   0014  mul-int/lit8             v2, v1, 8
+   001c  shr-int                  v2, v3, v2
+   0024  and-int/lit16            v2, v2, 255
+   002c  aput                     v2, v0, v1
+   0034  add-int/lit8             v1, v1, 1
+   003c  goto                     -ch
+   0040  return-object            v0
+------------------------------------------------------------------
+METHOD intToIntArray2(I I)[I
+   0000  new-array                v0, v5, [I
+   0008  const/4                  v1, 0
+   000c  if-ge                    v1, v5, +010h
+   0014  add-int/lit8             v2, v5, -1
+   001c  sub-int/2addr            v2, v1
+   0020  mul-int/lit8             v3, v1, 8
+   0028  shr-int                  v3, v4, v3
+   0030  and-int/lit16            v3, v3, 255
+   0038  aput                     v3, v0, v2
+   0040  add-int/lit8             v1, v1, 1
+   0048  goto                     -fh
+   004c  return-object            v0

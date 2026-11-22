@@ -1,0 +1,262 @@
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;-><clinit>()V
+   new-instance           v0, Ljava/util/ArrayList;
+   invoke-direct          v0, Ljava/util/ArrayList;-><init>()V
+   sput-object            v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mContents Ljava/util/List;
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;-><init>()V
+   invoke-direct          v0, Ljava/lang/Object;-><init>()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->decode(Ljava/net/DatagramPacket;)Lcom/qiaosports/xqiao/socket/udp/UdpData;
+   invoke-virtual         v9, Ljava/net/DatagramPacket;->getData()[B
+   move-result-object     v0
+   const-string           v1, ""
+   array-length           v2, v0
+   const/4                v3, 0
+   move-object            v4, v1
+   const/4                v1, 0
+   if-ge                  v1, v2, +01fh
+   aget-byte              v5, v0, v1
+   new-instance           v6, Ljava/lang/StringBuilder;
+   invoke-direct          v6, Ljava/lang/StringBuilder;-><init>()V
+   invoke-virtual         v6, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-static          v5, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+   move-result-object     v4
+   invoke-virtual         v6, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   const-string           v4, "/"
+   invoke-virtual         v6, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v4
+   add-int/lit8           v1, v1, 1
+   goto                   -1eh
+   new-instance           v1, Ljava/lang/StringBuilder;
+   invoke-direct          v1, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v2, "udp content: "
+   invoke-virtual         v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v1
+   invoke-static          v1, Lcom/blankj/utilcode/util/LogUtils;->d(Ljava/lang/Object;)V
+   sget-object            v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mContents Ljava/util/List;
+   invoke-interface       v1, v4, Ljava/util/List;->contains(Ljava/lang/Object;)Z
+   move-result            v1
+   if-nez                 v1, +023h
+   new-instance           v1, Lcom/qiaosports/xqiao/model/http/AppErrorBody;
+   invoke-direct          v1, Lcom/qiaosports/xqiao/model/http/AppErrorBody;-><init>()V
+   invoke-virtual         v1, v4, Lcom/qiaosports/xqiao/model/http/AppErrorBody;->setContext(Ljava/lang/String;)V
+   invoke-static          Lcom/qiaosports/xqiao/http/RetrofitHelper;->getInstance()Lcom/qiaosports/xqiao/http/RetrofitHelper;
+   move-result-object     v2
+   invoke-virtual         v2, Lcom/qiaosports/xqiao/http/RetrofitHelper;->getApiService()Lcom/qiaosports/xqiao/http/IcxApis;
+   move-result-object     v2
+   invoke-interface       v2, v1, Lcom/qiaosports/xqiao/http/IcxApis;->errorLog(Lcom/qiaosports/xqiao/model/http/AppErrorBody;)Lretrofit2/Call;
+   move-result-object     v1
+   new-instance           v2, Lcom/qiaosports/xqiao/socket/udp/UdpData$1;
+   invoke-direct          v2, Lcom/qiaosports/xqiao/socket/udp/UdpData$1;-><init>()V
+   invoke-interface       v1, v2, Lretrofit2/Call;->enqueue(Lretrofit2/Callback;)V
+   sget-object            v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mContents Ljava/util/List;
+   invoke-interface       v1, v4, Ljava/util/List;->add(Ljava/lang/Object;)Z
+   invoke-virtual         v9, Ljava/net/DatagramPacket;->getAddress()Ljava/net/InetAddress;
+   move-result-object     v9
+   invoke-virtual         v9, Ljava/net/InetAddress;->getHostAddress()Ljava/lang/String;
+   move-result-object     v9
+   new-instance           v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;
+   invoke-direct          v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;-><init>()V
+   aget-byte              v2, v0, v3
+   int-to-char            v2, v2
+   const/16               v4, 88
+   if-ne                  v4, v2, +0a7h
+   const/16               v2, 74
+   const/4                v5, 1
+   aget-byte              v6, v0, v5
+   int-to-char            v6, v6
+   if-ne                  v2, v6, +09fh
+   const/4                v2, 2
+   aget-byte              v6, v0, v2
+   int-to-char            v6, v6
+   if-ne                  v4, v6, +099h
+   const/16               v4, 81
+   const/4                v6, 3
+   aget-byte              v7, v0, v6
+   int-to-char            v7, v7
+   if-ne                  v4, v7, +091h
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setIp(Ljava/lang/String;)V
+   const/4                v9, 4
+   const/4                v4, 6
+   invoke-static          v0, v9, v4, Ljava/util/Arrays;->copyOfRange([B I I)[B
+   move-result-object     v7
+   invoke-static          v7, Lcom/qiaosports/xqiao/socket/SocketUtil;->byteArrayToInt2([B)I
+   move-result            v7
+   invoke-virtual         v1, v7, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setFactory(I)V
+   const/16               v7, 8
+   invoke-static          v0, v4, v7, Ljava/util/Arrays;->copyOfRange([B I I)[B
+   move-result-object     v8
+   invoke-static          v8, Lcom/qiaosports/xqiao/socket/SocketUtil;->byteArrayToInt2([B)I
+   move-result            v8
+   invoke-virtual         v1, v8, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setModel(I)V
+   const-string           v8, "%02x%02x%02x%02x%02x%02x"
+   new-array              v4, v4, [Ljava/lang/Object;
+   aget-byte              v7, v0, v7
+   invoke-static          v7, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v7
+   aput-object            v7, v4, v3
+   const/16               v3, 9
+   aget-byte              v3, v0, v3
+   invoke-static          v3, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v3
+   aput-object            v3, v4, v5
+   const/16               v3, 10
+   aget-byte              v3, v0, v3
+   invoke-static          v3, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v3
+   aput-object            v3, v4, v2
+   const/16               v2, 11
+   aget-byte              v2, v0, v2
+   invoke-static          v2, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v2
+   aput-object            v2, v4, v6
+   const/16               v2, 12
+   aget-byte              v2, v0, v2
+   invoke-static          v2, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v2
+   aput-object            v2, v4, v9
+   const/4                v9, 5
+   const/16               v2, 13
+   aget-byte              v2, v0, v2
+   invoke-static          v2, Ljava/lang/Byte;->valueOf(B)Ljava/lang/Byte;
+   move-result-object     v2
+   aput-object            v2, v4, v9
+   invoke-static          v8, v4, Ljava/lang/String;->format(Ljava/lang/String; [Ljava/lang/Object;)Ljava/lang/String;
+   move-result-object     v9
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setMac(Ljava/lang/String;)V
+   const/16               v9, 14
+   const/16               v2, 16
+   invoke-static          v0, v9, v2, Ljava/util/Arrays;->copyOfRange([B I I)[B
+   move-result-object     v9
+   invoke-static          v9, Lcom/qiaosports/xqiao/socket/SocketUtil;->byteArrayToInt2([B)I
+   move-result            v9
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiVersion(I)V
+   aget-byte              v9, v0, v2
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiState(I)V
+   const/16               v9, 17
+   aget-byte              v9, v0, v9
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setUpdateState(I)V
+   const/16               v9, 18
+   aget-byte              v9, v0, v9
+   invoke-virtual         v1, v9, Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiType(I)V
+   const-string           v9, "UdpData"
+   invoke-virtual         v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->toString()Ljava/lang/String;
+   move-result-object     v0
+   invoke-static          v9, v0, Lcom/qiaosports/xqiao/util/LogUtil;->d(Ljava/lang/String; Ljava/lang/String;)V
+   return-object          v1
+   const/4                v9, 0
+   return-object          v9
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getFactory()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->factory I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getIp()Ljava/lang/String;
+   iget-object            v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->ip Ljava/lang/String;
+   return-object          v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getMac()Ljava/lang/String;
+   iget-object            v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mac Ljava/lang/String;
+   return-object          v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getModel()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->model I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getUpdateState()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->updateState I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getWifiState()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiState I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getWifiType()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiType I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->getWifiVersion()I
+   iget                   v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiVersion I
+   return                 v0
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setFactory(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->factory I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setIp(Ljava/lang/String;)V
+   iput-object            v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->ip Ljava/lang/String;
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setMac(Ljava/lang/String;)V
+   iput-object            v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mac Ljava/lang/String;
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setModel(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->model I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setUpdateState(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->updateState I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiState(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiState I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiType(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiType I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->setWifiVersion(I)V
+   iput                   v1, v0, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiVersion I
+   return-void            
+
+### Lcom/qiaosports/xqiao/socket/udp/UdpData;->toString()Ljava/lang/String;
+   new-instance           v0, Ljava/lang/StringBuilder;
+   invoke-direct          v0, Ljava/lang/StringBuilder;-><init>()V
+   const-string           v1, "UdpData{factory="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->factory I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, ", model="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->model I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, ", ip='"
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget-object            v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->ip Ljava/lang/String;
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   const/16               v1, 39
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+   const-string           v2, ", mac='"
+   invoke-virtual         v0, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget-object            v2, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->mac Ljava/lang/String;
+   invoke-virtual         v0, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+   const-string           v1, ", wifiVersion="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiVersion I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, ", wifiState="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiState I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, ", updateState="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->updateState I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const-string           v1, ", wifiType="
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   iget                   v1, v3, Lcom/qiaosports/xqiao/socket/udp/UdpData;->wifiType I
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+   const/16               v1, 125
+   invoke-virtual         v0, v1, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+   invoke-virtual         v0, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+   move-result-object     v0
+   return-object          v0

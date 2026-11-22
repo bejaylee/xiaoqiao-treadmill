@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.application'
+}
+
+// 单一版本来源：工程根目录 version.txt（与 build_apk.sh 共用）
+def v = file('../../version.txt').readLines()[0].trim().split(' ')
+
+android {
+    namespace 'com.xq.treadmill'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.xq.treadmill"
+        minSdk 21
+        targetSdk 34
+        versionCode v[0].toInteger()
+        versionName v[1]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+// 无任何第三方依赖：只用 android.* 与 java.*
+dependencies {
+}

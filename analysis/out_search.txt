@@ -1,0 +1,23 @@
+
+### Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->removeBackgroundTask()V
+   iget-object            v0, v1, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mScheduledExecutorService Ljava/util/concurrent/ScheduledExecutorService;
+   invoke-interface       v0, Ljava/util/concurrent/ScheduledExecutorService;->shutdownNow()Ljava/util/List;
+   iget-object            v0, v1, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mUdpClient Lcom/qiaosports/xqiao/socket/udp/UdpClient;
+   if-eqz                 v0, +005h
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->close()V
+   invoke-direct          v1, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->stopWifiConfig()V
+   iget-object            v0, v1, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mMulticastLock Landroid/net/wifi/WifiManager$MulticastLock;
+   invoke-virtual         v0, Landroid/net/wifi/WifiManager$MulticastLock;->release()V
+   return-void            
+
+### Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->startUdp()V
+   new-instance           v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;
+   invoke-direct          v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;-><init>()V
+   iput-object            v0, v2, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mUdpClient Lcom/qiaosports/xqiao/socket/udp/UdpClient;
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mUdpClient Lcom/qiaosports/xqiao/socket/udp/UdpClient;
+   new-instance           v1, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity$4;
+   invoke-direct          v1, v2, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity$4;-><init>(Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;)V
+   invoke-virtual         v0, v1, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->setOnUdpDataReceived(Lcom/qiaosports/xqiao/socket/udp/UdpDataListener;)V
+   iget-object            v0, v2, Lcom/qiaosports/xqiao/feature/activity/DeviceSearchActivity;->mUdpClient Lcom/qiaosports/xqiao/socket/udp/UdpClient;
+   invoke-virtual         v0, Lcom/qiaosports/xqiao/socket/udp/UdpClient;->receiveUdp()V
+   return-void            

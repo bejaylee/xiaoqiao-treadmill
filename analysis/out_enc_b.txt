@@ -1,0 +1,240 @@
+============================================================================
+CLASS Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;
+  FIELD size I = None
+------------------------------------------------------------------
+METHOD <init>()V
+   0000  invoke-direct            v0, Ljava/lang/Object;-><init>()V
+   000c  return-void              
+------------------------------------------------------------------
+METHOD cmdLength()I
+   0000  iget                     v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->size I
+   0008  mul-int/lit8             v0, v0, 8
+   0010  add-int/lit8             v0, v0, 12
+   0018  return                   v0
+------------------------------------------------------------------
+METHOD dataCmd()I
+   0000  const/16                 v0, 18
+   0008  return                   v0
+------------------------------------------------------------------
+METHOD dataLength()I
+   0000  invoke-virtual           v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->cmdLength()I
+   000c  move-result              v0
+   0010  add-int/lit8             v0, v0, 2
+   0018  return                   v0
+------------------------------------------------------------------
+METHOD encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;)[B
+   0000  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getDetailBeanList()Ljava/util/List;
+   000c  move-result-object       v0
+   0010  invoke-interface         v0, Ljava/util/List;->size()I
+   001c  move-result              v1
+   0020  iput                     v1, v10, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->size I
+   0028  invoke-virtual           v10, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->dataLength()I
+   0034  move-result              v1
+   0038  new-array                v1, v1, [I
+   0040  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getPlanId()I
+   004c  move-result              v2
+   0050  const/4                  v3, 2
+   0054  invoke-static            v2, v3, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray2(I I)[I
+   0060  move-result-object       v2
+   0064  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getUid()I
+   0070  move-result              v4
+   0074  const/4                  v5, 4
+   0078  invoke-static            v4, v5, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray2(I I)[I
+   0084  move-result-object       v4
+   0088  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getLastSecond()I
+   0094  move-result              v6
+   0098  invoke-static            v6, v5, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray(I I)[I
+   00a4  move-result-object       v6
+   00a8  invoke-virtual           v10, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->dataCmd()I
+   00b4  move-result              v7
+   00b8  const/4                  v8, 0
+   00bc  aput                     v7, v1, v8
+   00c4  invoke-virtual           v10, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->cmdLength()I
+   00d0  move-result              v7
+   00d4  const/4                  v9, 1
+   00d8  aput                     v7, v1, v9
+   00e0  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getIndex()I
+   00ec  move-result              v7
+   00f0  aput                     v7, v1, v3
+   00f8  invoke-virtual           v11, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;->getModeId()I
+   0104  move-result              v11
+   0108  const/4                  v7, 3
+   010c  aput                     v11, v1, v7
+   0114  aget                     v11, v2, v8
+   011c  aput                     v11, v1, v5
+   0124  aget                     v11, v2, v9
+   012c  const/4                  v2, 5
+   0130  aput                     v11, v1, v2
+   0138  aget                     v11, v4, v8
+   0140  const/4                  v2, 6
+   0144  aput                     v11, v1, v2
+   014c  aget                     v11, v4, v9
+   0154  const/4                  v2, 7
+   0158  aput                     v11, v1, v2
+   0160  aget                     v11, v4, v3
+   0168  const/16                 v2, 8
+   0170  aput                     v11, v1, v2
+   0178  aget                     v11, v4, v7
+   0180  const/16                 v2, 9
+   0188  aput                     v11, v1, v2
+   0190  aget                     v11, v6, v8
+   0198  const/16                 v2, 10
+   01a0  aput                     v11, v1, v2
+   01a8  aget                     v11, v6, v9
+   01b0  const/16                 v2, 11
+   01b8  aput                     v11, v1, v2
+   01c0  aget                     v11, v6, v3
+   01c8  const/16                 v2, 12
+   01d0  aput                     v11, v1, v2
+   01d8  aget                     v11, v6, v7
+   01e0  const/16                 v2, 13
+   01e8  aput                     v11, v1, v2
+   01f0  const/16                 v11, 14
+   01f8  const/4                  v11, 0
+   01fc  const/16                 v2, 14
+   0204  invoke-interface         v0, Ljava/util/List;->size()I
+   0210  move-result              v4
+   0214  if-ge                    v11, v4, +060h
+   021c  invoke-interface         v0, v11, Ljava/util/List;->get(I)Ljava/lang/Object;
+   0228  move-result-object       v4
+   022c  check-cast               v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;
+   0234  add-int/lit8             v5, v2, 1
+   023c  invoke-virtual           v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;->getIndex()I
+   0248  move-result              v6
+   024c  aput                     v6, v1, v2
+   0254  add-int/lit8             v2, v5, 1
+   025c  invoke-virtual           v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;->getSpeed()F
+   0268  move-result              v6
+   026c  const/high16             v7, 1092616192
+   0274  mul-float                v6, v6, v7
+   027c  float-to-int             v6, v6
+   0280  aput                     v6, v1, v5
+   0288  invoke-virtual           v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;->getStartMin()I
+   0294  move-result              v5
+   0298  mul-int/lit8             v5, v5, 60
+   02a0  invoke-static            v5, v3, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray(I I)[I
+   02ac  move-result-object       v5
+   02b0  add-int/lit8             v6, v2, 1
+   02b8  aget                     v7, v5, v8
+   02c0  aput                     v7, v1, v2
+   02c8  add-int/lit8             v2, v6, 1
+   02d0  aget                     v5, v5, v9
+   02d8  aput                     v5, v1, v6
+   02e0  invoke-virtual           v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;->getEndMin()I
+   02ec  move-result              v5
+   02f0  mul-int/lit8             v5, v5, 60
+   02f8  invoke-static            v5, v3, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray(I I)[I
+   0304  move-result-object       v5
+   0308  add-int/lit8             v6, v2, 1
+   0310  aget                     v7, v5, v8
+   0318  aput                     v7, v1, v2
+   0320  add-int/lit8             v2, v6, 1
+   0328  aget                     v5, v5, v9
+   0330  aput                     v5, v1, v6
+   0338  invoke-virtual           v4, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12$PlanDetail;->getInfoId()I
+   0344  move-result              v4
+   0348  invoke-static            v4, v3, Lcom/qiaosports/xqiao/socket/SocketUtil;->intToIntArray(I I)[I
+   0354  move-result-object       v4
+   0358  add-int/lit8             v5, v2, 1
+   0360  aget                     v6, v4, v8
+   0368  aput                     v6, v1, v2
+   0370  add-int/lit8             v2, v5, 1
+   0378  aget                     v4, v4, v9
+   0380  aput                     v4, v1, v5
+   0388  add-int/lit8             v11, v11, 1
+   0390  goto                     -63h
+   0394  invoke-static            v1, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToByteArray([I)[B
+   03a0  move-result-object       v11
+   03a4  return-object            v11
+------------------------------------------------------------------
+METHOD encode(Ljava/lang/Object;)[B
+   0000  check-cast               v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;
+   0008  invoke-virtual           v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode12;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel12;)[B
+   0014  move-result-object       v1
+   0018  return-object            v1
+============================================================================
+CLASS Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;
+------------------------------------------------------------------
+METHOD <init>()V
+   0000  invoke-direct            v0, Ljava/lang/Object;-><init>()V
+   000c  return-void              
+------------------------------------------------------------------
+METHOD cmdLength()I
+   0000  const/4                  v0, 0
+   0004  return                   v0
+------------------------------------------------------------------
+METHOD dataCmd()I
+   0000  const/16                 v0, 23
+   0008  return                   v0
+------------------------------------------------------------------
+METHOD dataLength()I
+   0000  invoke-virtual           v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;->cmdLength()I
+   000c  move-result              v0
+   0010  add-int/lit8             v0, v0, 2
+   0018  return                   v0
+------------------------------------------------------------------
+METHOD encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel17;)[B
+   0000  invoke-virtual           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;->dataLength()I
+   000c  move-result              v3
+   0010  new-array                v3, v3, [I
+   0018  invoke-virtual           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;->dataCmd()I
+   0024  move-result              v0
+   0028  const/4                  v1, 0
+   002c  aput                     v0, v3, v1
+   0034  invoke-virtual           v2, Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;->cmdLength()I
+   0040  move-result              v0
+   0044  const/4                  v1, 1
+   0048  aput                     v0, v3, v1
+   0050  invoke-static            v3, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToByteArray([I)[B
+   005c  move-result-object       v3
+   0060  return-object            v3
+------------------------------------------------------------------
+METHOD encode(Ljava/lang/Object;)[B
+   0000  check-cast               v1, Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel17;
+   0008  invoke-virtual           v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/Encode17;->encode(Lcom/qiaosports/xqiao/socket/codec/encode/CmdModel17;)[B
+   0014  move-result-object       v1
+   0018  return-object            v1
+============================================================================
+CLASS Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;
+------------------------------------------------------------------
+METHOD <init>()V
+   0000  invoke-direct            v0, Ljava/lang/Object;-><init>()V
+   000c  return-void              
+------------------------------------------------------------------
+METHOD cmdLength()I
+   0000  const/4                  v0, 1
+   0004  return                   v0
+------------------------------------------------------------------
+METHOD dataCmd()I
+   0000  const/4                  v0, 4
+   0004  return                   v0
+------------------------------------------------------------------
+METHOD dataLength()I
+   0000  invoke-virtual           v1, Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;->cmdLength()I
+   000c  move-result              v0
+   0010  add-int/lit8             v0, v0, 2
+   0018  return                   v0
+------------------------------------------------------------------
+METHOD encode(Ljava/lang/Object;)[B
+   0000  check-cast               v1, Ljava/lang/String;
+   0008  invoke-virtual           v0, v1, Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;->encode(Ljava/lang/String;)[B
+   0014  move-result-object       v1
+   0018  return-object            v1
+------------------------------------------------------------------
+METHOD encode(Ljava/lang/String;)[B
+   0000  invoke-virtual           v3, Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;->dataLength()I
+   000c  move-result              v4
+   0010  new-array                v4, v4, [I
+   0018  invoke-virtual           v3, Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;->dataCmd()I
+   0024  move-result              v0
+   0028  const/4                  v1, 0
+   002c  aput                     v0, v4, v1
+   0034  invoke-virtual           v3, Lcom/qiaosports/xqiao/socket/codec/encode/EncodeHeaterBeat;->cmdLength()I
+   0040  move-result              v0
+   0044  const/4                  v2, 1
+   0048  aput                     v0, v4, v2
+   0050  const/4                  v0, 2
+   0054  aput                     v1, v4, v0
+   005c  invoke-static            v4, Lcom/qiaosports/xqiao/socket/SocketUtil;->intArrayToByteArray([I)[B
+   0068  move-result-object       v4
+   006c  return-object            v4
